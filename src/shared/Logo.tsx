@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react'
-import { Heading, Text } from 'rebass'
+import { Heading, Text } from 'theme-ui'
 
 const Logo: FunctionComponent = () => (
-  <Heading variant="logo.main">
+  <Heading sx={{ cursor: 'default', userSelect: 'none' }} variant="logo.main">
     wal
     <Text as="span" variant="logo.bigLetter">
       l

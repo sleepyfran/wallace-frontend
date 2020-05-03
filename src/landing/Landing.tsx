@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { Box, Button } from 'rebass'
+import { Box, Button } from 'theme-ui'
 
 import Logo from '../shared/Logo'
 

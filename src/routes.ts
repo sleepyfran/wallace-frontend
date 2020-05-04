@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react'
 
+import CreateAccountComponent from './create-account/CreateAccount'
 import LandingComponent from './landing/Landing'
 import LoginComponent from './login/Login'
 
@@ -27,7 +28,15 @@ export const LoginScreen: Route = {
   component: LoginComponent,
 }
 
+export const CreateAccountScreen: Route = {
+  id: 2,
+  name: 'CreateAccount',
+  path: '/create-account',
+  exact: true,
+  component: CreateAccountComponent,
+}
+
 /**
  * Routes of the app.
  */
-export default [LandingScreen, LoginScreen]
+export default [LandingScreen, LoginScreen, CreateAccountScreen]

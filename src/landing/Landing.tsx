@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Box, Button, Heading, Flex, Divider, Text } from 'theme-ui'
 
-import { LoginScreen } from '../routes'
+import { LoginScreen, CreateAccountScreen } from '../routes'
 import SingleColumnLayout from '../shared/components/SingleColumnLayout'
 
 const LandingComponent: FunctionComponent = () => {
@@ -13,7 +13,7 @@ const LandingComponent: FunctionComponent = () => {
   }
 
   const handleCreateAccountClick = () => {
-    alert('Coming soon :)')
+    history.push(CreateAccountScreen.path)
   }
 
   const handleExploreAsGuestClick = () => {

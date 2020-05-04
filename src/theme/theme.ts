@@ -7,10 +7,6 @@ const baseButtonStyle = {
   width: '100%',
 }
 
-const baseButtonHoverStyle = {
-  bg: 'backgroundDimmed',
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default {
   colors: {
@@ -18,7 +14,9 @@ export default {
     text: '#333333',
     invertedText: '#FFFFFF',
     background: '#F2F2F2',
-    backgroundDimmed: '#BDBDBD',
+    backgroundDimmed: '#454545',
+    backgroundOutline: '#F2F2F2',
+    backgroundOutlineDimmed: '#E3E3E3',
     expense: '#BE5043',
     income: '#59B08F',
     modes: {
@@ -27,7 +25,7 @@ export default {
         text: '#BDBDBD',
         invertedText: '#4F4F4F',
         background: '#4F4F4F',
-        backgroundDimmed: '#BDBDBD',
+        backgroundDimmed: '#454545',
         expense: '#BE5043',
         income: '#59B08F',
       },
@@ -69,7 +67,7 @@ export default {
     primary: {
       ...baseButtonStyle,
       ':hover': {
-        ...baseButtonHoverStyle,
+        bg: 'backgroundDimmed',
       },
       color: 'invertedText',
       bg: 'main',
@@ -77,8 +75,7 @@ export default {
     outline: {
       ...baseButtonStyle,
       ':hover': {
-        ...baseButtonHoverStyle,
-        color: 'invertedText',
+        bg: 'backgroundOutlineDimmed',
       },
       color: 'text',
       bg: 'transparent',

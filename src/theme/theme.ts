@@ -57,6 +57,15 @@ export default {
     circle: 99999,
   },
   buttons: {
+    anchor: {
+      bg: 'transparent',
+      color: 'text',
+      cursor: 'pointer',
+      margin: 0,
+      padding: 0,
+      outline: 'none',
+      textDecoration: 'underline',
+    },
     primary: {
       ...baseButtonStyle,
       ':hover': {

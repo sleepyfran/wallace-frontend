@@ -1,9 +1,13 @@
 import React, { FunctionComponent } from 'react'
-import { Box, Button, Heading, Flex, Divider, Text, Link } from 'theme-ui'
+import { Box, Button, Heading, Flex, Divider, Text } from 'theme-ui'
 
 import Layout from '../shared/components/Layout'
 
 const LandingComponent: FunctionComponent = () => {
+  const onExploreAsGuest = () => {
+    alert('Coming soon :)')
+  }
+
   return (
     <Layout showUserSectionInHeader={false}>
       <Flex sx={{ flexDirection: 'column', alignItems: 'center', mt: 3 }}>
@@ -13,7 +17,10 @@ const LandingComponent: FunctionComponent = () => {
           <Button variant="outline">Create account</Button>
           <Divider sx={{ mt: 4 }} />
           <Text sx={{ textAlign: 'center', mt: 1 }}>
-            Or <Link href="#/">explore as guest</Link>
+            Or{' '}
+            <Button onClick={onExploreAsGuest} variant="anchor">
+              explore as guest
+            </Button>
           </Text>
         </Box>
       </Flex>

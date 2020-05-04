@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react'
 
 import LandingComponent from './landing/Landing'
+import LoginComponent from './login/Login'
 
 type Route = {
   id: number
@@ -18,7 +19,15 @@ export const LandingScreen: Route = {
   component: LandingComponent,
 }
 
+export const LoginScreen: Route = {
+  id: 1,
+  name: 'Login',
+  path: '/login',
+  exact: true,
+  component: LoginComponent,
+}
+
 /**
  * Routes of the app.
  */
-export default [LandingScreen]
+export default [LandingScreen, LoginScreen]

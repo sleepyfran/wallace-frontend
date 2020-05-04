@@ -1,10 +1,14 @@
-const baseButtonStyle = {
+const baseInteractiveElementStyle = {
   borderColor: 'main',
   borderStyle: 'solid',
   borderWidth: 2,
+  width: '100%',
+}
+
+const baseButtonStyle = {
+  ...baseInteractiveElementStyle,
   fontSize: 2,
   px: [2, 3, 4],
-  width: '100%',
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -81,6 +85,11 @@ export default {
       bg: 'transparent',
     },
   },
+  forms: {
+    input: {
+      ...baseInteractiveElementStyle,
+    },
+  },
   text: {
     logo: {
       main: {
@@ -91,16 +100,19 @@ export default {
       },
     },
     heading: {
-      color: 'text',
       fontFamily: 'heading',
       fontSize: [4, 5, 5],
       fontWeight: 'heading',
       lineHeight: 'heading',
     },
+    inputTitle: {
+      fontSize: 1,
+    },
   },
   styles: {
     root: {
       bg: 'background',
+      color: 'text',
       fontFamily: 'body',
       fontWeight: 'body',
       lineHeight: 'body',

@@ -4,7 +4,7 @@ import { Box, Flex } from 'theme-ui'
 import Footer from './Footer'
 import Header from './Header'
 
-type LayoutProps = {
+export type LayoutProps = {
   showUserSectionInHeader?: boolean
 }
 

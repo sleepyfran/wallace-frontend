@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Box, Button, Heading, Flex, Divider, Text } from 'theme-ui'
+import { Button, Divider, Text } from 'theme-ui'
 
 import { LoginScreen, CreateAccountScreen } from '../routes'
 import SingleColumnLayout from '../shared/components/SingleColumnLayout'

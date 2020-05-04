@@ -1,28 +1,24 @@
 import React, { FunctionComponent } from 'react'
-import { Button, Input, Label } from 'theme-ui'
+import { Button, Field } from 'theme-ui'
 
 import SingleColumnLayout from '../shared/components/SingleColumnLayout'
 
 const CreateAccountComponent: FunctionComponent = () => {
   return (
     <SingleColumnLayout
+      childrenMargin={3}
       showUserSectionInHeader={false}
       title="We're glad to see you here!"
     >
-      <Label htmlFor="email">Email</Label>
-      <Input name="email" />
+      <Field label="Email" name="email" />
+      <Field<'input'> label="Password" name="password" type="Password" />
+      <Field<'input'>
+        label="Repeat password"
+        name="passwordRepeat"
+        type="Password"
+      />
 
-      <Label htmlFor="password" sx={{ mt: 3 }}>
-        Password
-      </Label>
-      <Input name="password" type="Password" />
-
-      <Label htmlFor="passwordRepeat" sx={{ mt: 3 }}>
-        Repeat password
-      </Label>
-      <Input name="passwordRepeat" type="Password" />
-
-      <Button sx={{ mt: 3 }}>Create account</Button>
+      <Button>Create account</Button>
     </SingleColumnLayout>
   )
 }

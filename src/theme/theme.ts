@@ -3,7 +3,7 @@ const baseButtonStyle = {
   borderStyle: 'solid',
   borderWidth: 2,
   fontSize: 2,
-  px: 6,
+  px: [2, 3, 4],
 }
 
 const baseButtonHoverStyle = {
@@ -45,7 +45,7 @@ export default {
     heading: 700,
     bold: 700,
   },
-  breakpoints: ['40em', '64em', '72em'],
+  breakpoints: ['40em', '64em', '78em'],
   lineHeights: {
     body: 1.5,
     heading: 1.25,
@@ -86,7 +86,7 @@ export default {
     heading: {
       color: 'text',
       fontFamily: 'heading',
-      fontSize: 8,
+      fontSize: [4, 5, 5],
       fontWeight: 'heading',
       lineHeight: 'heading',
     },
@@ -97,6 +97,9 @@ export default {
       fontFamily: 'body',
       fontWeight: 'body',
       lineHeight: 'body',
+    },
+    a: {
+      color: 'text',
     },
   },
 }

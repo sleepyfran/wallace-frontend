@@ -4,6 +4,7 @@ const baseButtonStyle = {
   borderWidth: 2,
   fontSize: 2,
   px: [2, 3, 4],
+  width: '100%',
 }
 
 const baseButtonHoverStyle = {

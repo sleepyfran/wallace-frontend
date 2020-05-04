@@ -35,6 +35,7 @@
     "react/jsx-max-props-per-line": ["error", { "maximum": 3 }],
     "react/jsx-sort-props": ["error", { "ignoreCase": true }],
     "react/jsx-props-no-spreading": 0,
+    "react/prop-types": 0,
     "semi": ["error", "never"],
     "@typescript-eslint/semi": ["error", "never"],
     "@typescript-eslint/explicit-function-return-type": "off",

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Button, Divider, Text } from 'theme-ui'
 
-import { LoginScreen, CreateAccountScreen } from '../routes'
+import { LoginScreen, SignUpScreen } from '../routes'
 import SingleColumnLayout from '../shared/components/SingleColumnLayout'
 
 const LandingComponent: FunctionComponent = () => {
@@ -12,8 +12,8 @@ const LandingComponent: FunctionComponent = () => {
     history.push(LoginScreen.path)
   }
 
-  const handleCreateAccountClick = () => {
-    history.push(CreateAccountScreen.path)
+  const handleSignUpClick = () => {
+    history.push(SignUpScreen.path)
   }
 
   const handleExploreAsGuestClick = () => {
@@ -28,7 +28,7 @@ const LandingComponent: FunctionComponent = () => {
       <Button onClick={handleSignInClick} sx={{ mb: 1 }}>
         Sign In
       </Button>
-      <Button onClick={handleCreateAccountClick} variant="outline">
+      <Button onClick={handleSignUpClick} variant="outline">
         Create account
       </Button>
       <Divider sx={{ mt: 4 }} />

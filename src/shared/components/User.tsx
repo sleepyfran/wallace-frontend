@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { Box, Text, Flex } from 'theme-ui'
 
 import { ReactComponent as UserIcon } from '../../assets/user.svg'
-import { User } from '../model/user'
+import { User } from '../types/user'
 
 type UserProps = {
   user?: User

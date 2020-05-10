@@ -1,3 +1,6 @@
+import { Maybe } from 'purify-ts'
+import { Result } from 'validum'
+
 type ThemePropertyValue = string | number
 type MarginType = 'm' | 'mt' | 'mr' | 'mb' | 'ml' | 'mx' | 'my'
 
@@ -26,3 +29,47 @@ export const withMarginInAllButFirstChild = (
     },
     value
   )
+
+/**
+ * Checks that the given date is not an invalid date.
+ * @param date Date to check.
+ */
+// eslint-disable-next-line no-restricted-globals
+export const validDate = (date: Date) => isFinite(Number(date))
+
+/**
+ * Transforms a Validum's result into the internal representation of errors
+ * of the form machine.
+ * @param result Result from the Validum library.
+ */
+export const errorsFromResult = <T>(
+  result: Result<T>
+): { [P in keyof T]: T[P] } =>
+  result.errors().reduce(
+    (prev, curr) => ({
+      ...prev,
+      [curr.property as keyof T]: curr.message,
+    }),
+    {} as T
+  )
+
+/**
+ * Transforms an error's response data into the internal representation of errors
+ * of the form machine. TODO: Add types to this in the near future.
+ * @param response Response from the error response.
+ */
+export const errorsFromResponse = (response: Maybe<any>): any =>
+  response.caseOf({
+    Just: r => {
+      const { errors } = r
+
+      return Object.keys(errors).reduce(
+        (prev, curr) => ({
+          ...prev,
+          [curr.toLowerCase()]: errors[curr],
+        }),
+        {}
+      )
+    },
+    Nothing: () => ({ general: 'Please fill all the inputs correctly' } as any),
+  })

@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react'
 import { Button, Field } from 'theme-ui'
 
-import SingleColumnLayout from '../shared/components/SingleColumnLayout'
+import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
 
-const CreateAccountComponent: FunctionComponent = () => {
+const SignUpComponent: FunctionComponent = () => {
   return (
     <SingleColumnLayout
       childrenMargin={3}
@@ -23,4 +23,4 @@ const CreateAccountComponent: FunctionComponent = () => {
   )
 }
 
-export default CreateAccountComponent
+export default SignUpComponent

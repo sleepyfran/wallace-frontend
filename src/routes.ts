@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react'
 
-import CreateAccountComponent from './create-account/CreateAccount'
+import LoginComponent from './auth/login/Login'
+import SignUpComponent from './auth/sign-up/SignUp'
 import LandingComponent from './landing/Landing'
-import LoginComponent from './login/Login'
 
 type Route = {
   id: number
@@ -28,15 +28,15 @@ export const LoginScreen: Route = {
   component: LoginComponent,
 }
 
-export const CreateAccountScreen: Route = {
+export const SignUpScreen: Route = {
   id: 2,
-  name: 'CreateAccount',
-  path: '/create-account',
+  name: 'SignUp',
+  path: '/sign-up',
   exact: true,
-  component: CreateAccountComponent,
+  component: SignUpComponent,
 }
 
 /**
  * Routes of the app.
  */
-export default [LandingScreen, LoginScreen, CreateAccountScreen]
+export default [LandingScreen, LoginScreen, SignUpScreen]

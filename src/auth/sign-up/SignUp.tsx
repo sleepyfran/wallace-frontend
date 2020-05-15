@@ -11,6 +11,7 @@ import validation from 'validum'
 
 import { LoginScreen } from '../../routes'
 import FormError from '../../shared/components/FormError'
+import FormField from '../../shared/components/FormField'
 import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
 import { createFormMachine } from '../../shared/machines/form.machine'
 import { errorsFromResult } from '../../shared/utils'
@@ -74,7 +75,7 @@ const SignUpComponent: FunctionComponent = () => {
         showUserSectionInHeader={false}
         title="We're glad to see you here!"
       >
-        <Field<'input'>
+        <FormField
           label="Email"
           name="email"
           onChange={handleChange}
@@ -82,7 +83,7 @@ const SignUpComponent: FunctionComponent = () => {
         />
         <FormError message={errors.email} />
 
-        <Field<'input'>
+        <FormField
           label="Password"
           name="password"
           onChange={handleChange}
@@ -91,7 +92,7 @@ const SignUpComponent: FunctionComponent = () => {
         />
         <FormError message={errors.password} />
 
-        <Field<'input'>
+        <FormField
           label="Repeat password"
           name="repeatPassword"
           onChange={handleChange}

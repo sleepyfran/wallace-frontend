@@ -32,8 +32,10 @@ const LoginComponent: FunctionComponent = () => {
           .of(input)
           .property('email')
           .notEmpty()
+          .withMessage('Email cannot be empty')
           .andProperty('password')
           .minLength(7)
+          .withMessage('Password has to be at least 7 characters long')
           .result()
 
         if (result.hasErrors()) return Promise.reject(errorsFromResult(result))

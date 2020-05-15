@@ -15,8 +15,16 @@ export default <T>(err: ErrorResponse<T>) => {
     case 400:
       return Promise.reject(errorsFromResponse(maybeData))
     case 404:
-      return Promise.reject({ general: 'Check your credentials' })
+      return Promise.reject({
+        general:
+          'Hmm, seems like your credentials are not correct, can you try again?',
+      })
+    case undefined:
+      return Promise.reject({
+        general:
+          "Seems like the server is offline, try again later, we'll be back!",
+      })
     default:
-      return Promise.reject({ general: 'Unknown error, please try again' })
+      return Promise.reject({ general: 'We got an unknown error, try again' })
   }
 }

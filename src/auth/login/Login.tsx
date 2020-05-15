@@ -1,19 +1,13 @@
-import { useMachine } from '@xstate/react'
-import React, {
-  ChangeEvent,
-  FormEvent,
-  FunctionComponent,
-  useCallback,
-} from 'react'
+import React, { FunctionComponent } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link, Button, Field, Box, Divider, Text } from 'theme-ui'
+import { Link, Button, Box, Divider, Text } from 'theme-ui'
 import validation from 'validum'
 
 import { SignUpScreen } from '../../routes'
 import FormError from '../../shared/components/FormError'
 import FormField from '../../shared/components/FormField'
 import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
-import { createFormMachine } from '../../shared/machines/form.machine'
+import { useForm } from '../../shared/hooks/useForm'
 import { Dispatch } from '../../shared/store/types'
 import { errorsFromResult } from '../../shared/utils'
 import { login } from '../shared/api/auth.api'
@@ -24,50 +18,36 @@ import handleLoginErrors from './login.errorHandler'
 const LoginComponent: FunctionComponent = () => {
   const dispatch: Dispatch = useDispatch()
 
-  const [current, send] = useMachine(
-    createFormMachine<UserLogin, keyof UserLogin>().withContext({
-      values: {},
-      errors: {},
-      submit: input => {
-        const result = validation
-          .of(input)
-          .property('email')
-          .notEmpty()
-          .withMessage('Email cannot be empty')
-          .andProperty('password')
-          .minLength(7)
-          .withMessage('Password has to be at least 7 characters long')
-          .result()
+  const {
+    machine: [current],
+    handleChange,
+    handleSubmit,
+  } = useForm<UserLogin>({
+    values: {},
+    errors: {},
+    submit: input => {
+      const result = validation
+        .of(input)
+        .property('email')
+        .notEmpty()
+        .withMessage('Email cannot be empty')
+        .andProperty('password')
+        .minLength(7)
+        .withMessage('Password has to be at least 7 characters long')
+        .result()
 
-        if (result.hasErrors()) return Promise.reject(errorsFromResult(result))
+      if (result.hasErrors()) return Promise.reject(errorsFromResult(result))
 
-        return login(input)
-          .then(response => dispatch(setUser(response.data)))
-          .catch(handleLoginErrors)
-      },
-    })
-  )
-
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      event.preventDefault()
-      send('CHANGE', { key: event.target.name, value: event.target.value })
+      return login(input)
+        .then(response => dispatch(setUser(response.data)))
+        .catch(handleLoginErrors)
     },
-    [send]
-  )
-
-  const handleLogin = useCallback(
-    (event: FormEvent) => {
-      event.preventDefault()
-      send('SUBMIT')
-    },
-    [send]
-  )
+  })
 
   const { values, errors } = current.context
 
   return (
-    <Box as="form" onSubmit={handleLogin}>
+    <Box as="form" onSubmit={handleSubmit}>
       <SingleColumnLayout
         childrenMargin={3}
         showUserSectionInHeader={false}

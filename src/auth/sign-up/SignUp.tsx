@@ -1,19 +1,13 @@
-import { useMachine } from '@xstate/react'
-import React, {
-  FunctionComponent,
-  useCallback,
-  ChangeEvent,
-  FormEvent,
-} from 'react'
+import React, { FunctionComponent } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link, Button, Field, Divider, Text, Box } from 'theme-ui'
+import { Link, Button, Divider, Text, Box } from 'theme-ui'
 import validation from 'validum'
 
 import { LoginScreen } from '../../routes'
 import FormError from '../../shared/components/FormError'
 import FormField from '../../shared/components/FormField'
 import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
-import { createFormMachine } from '../../shared/machines/form.machine'
+import { useForm } from '../../shared/hooks/useForm'
 import { errorsFromResult } from '../../shared/utils'
 import { signUp } from '../shared/api/auth.api'
 import { UserSignUp } from '../shared/model/model'
@@ -23,53 +17,39 @@ import handleSignUpErrors from './signup.errorHandler'
 const SignUpComponent: FunctionComponent = () => {
   const dispatch = useDispatch()
 
-  const [current, send] = useMachine(
-    createFormMachine<UserSignUp, keyof UserSignUp>().withContext({
-      values: {},
-      errors: {},
-      submit: input => {
-        const result = validation
-          .of(input)
-          .property('email')
-          .notEmpty()
-          .withMessage('Email cannot be empty')
-          .andProperty('password')
-          .minLength(7)
-          .withMessage('Password has to be at least 7 characters long')
-          .andProperty('repeatPassword')
-          .fulfills(us => us.password === us.repeatPassword)
-          .withMessage('The passwords must match!')
-          .result()
+  const {
+    machine: [current],
+    handleChange,
+    handleSubmit,
+  } = useForm<UserSignUp>({
+    values: {},
+    errors: {},
+    submit: input => {
+      const result = validation
+        .of(input)
+        .property('email')
+        .notEmpty()
+        .withMessage('Email cannot be empty')
+        .andProperty('password')
+        .minLength(7)
+        .withMessage('Password has to be at least 7 characters long')
+        .andProperty('repeatPassword')
+        .fulfills(us => us.password === us.repeatPassword)
+        .withMessage('The passwords must match!')
+        .result()
 
-        if (result.hasErrors()) return Promise.reject(errorsFromResult(result))
+      if (result.hasErrors()) return Promise.reject(errorsFromResult(result))
 
-        return signUp(input)
-          .then(response => dispatch(setUser(response.data)))
-          .catch(handleSignUpErrors)
-      },
-    })
-  )
-
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      event.preventDefault()
-      send('CHANGE', { key: event.target.name, value: event.target.value })
+      return signUp(input)
+        .then(response => dispatch(setUser(response.data)))
+        .catch(handleSignUpErrors)
     },
-    [send]
-  )
-
-  const handleSignUp = useCallback(
-    (event: FormEvent) => {
-      event.preventDefault()
-      send('SUBMIT')
-    },
-    [send]
-  )
+  })
 
   const { values, errors } = current.context
 
   return (
-    <Box as="form" onSubmit={handleSignUp}>
+    <Box as="form" onSubmit={handleSubmit}>
       <SingleColumnLayout
         childrenMargin={3}
         showUserSectionInHeader={false}

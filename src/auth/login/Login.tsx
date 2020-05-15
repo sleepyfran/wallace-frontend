@@ -6,9 +6,10 @@ import React, {
   useCallback,
 } from 'react'
 import { useDispatch } from 'react-redux'
-import { Button, Field, Box, Label } from 'theme-ui'
+import { Link, Button, Field, Box, Label, Divider, Text } from 'theme-ui'
 import validation from 'validum'
 
+import { SignUpScreen } from '../../routes'
 import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
 import { createFormMachine } from '../../shared/machines/form.machine'
 import { Dispatch } from '../../shared/store/types'
@@ -95,6 +96,13 @@ const LoginComponent: FunctionComponent = () => {
         )}
 
         <Button>Sign In</Button>
+
+        <Divider />
+
+        <Text>
+          Don&apos; have an account yet?{' '}
+          <Link href={SignUpScreen.path}>Create an account instead</Link>
+        </Text>
       </SingleColumnLayout>
     </Box>
   )

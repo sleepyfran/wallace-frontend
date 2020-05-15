@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react'
-import { Button, Field } from 'theme-ui'
+import { Link, Button, Field, Divider, Text } from 'theme-ui'
 
+import { LoginScreen } from '../../routes'
 import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
 
 const SignUpComponent: FunctionComponent = () => {
@@ -19,6 +20,13 @@ const SignUpComponent: FunctionComponent = () => {
       />
 
       <Button>Create account</Button>
+
+      <Divider />
+
+      <Text>
+        Already have an account?{' '}
+        <Link href={LoginScreen.path}>Sign in instead</Link>
+      </Text>
     </SingleColumnLayout>
   )
 }

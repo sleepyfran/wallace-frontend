@@ -9,7 +9,6 @@ import FormField from '../../shared/components/FormField'
 import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
 import { useForm } from '../../shared/hooks/useForm'
 import { Dispatch } from '../../shared/store/types'
-import { errorsFromResult } from '../../shared/utils'
 import { login } from '../shared/api/auth.api'
 import { UserLogin } from '../shared/model/model'
 import { setUser } from '../shared/store/auth.store'
@@ -25,8 +24,8 @@ const LoginComponent: FunctionComponent = () => {
   } = useForm<UserLogin>({
     values: {},
     errors: {},
-    submit: input => {
-      const result = validation
+    validate: input =>
+      validation
         .of(input)
         .property('email')
         .notEmpty()
@@ -34,14 +33,11 @@ const LoginComponent: FunctionComponent = () => {
         .andProperty('password')
         .minLength(7)
         .withMessage('Password has to be at least 7 characters long')
-        .result()
-
-      if (result.hasErrors()) return Promise.reject(errorsFromResult(result))
-
-      return login(input)
+        .result(),
+    submit: input =>
+      login(input)
         .then(response => dispatch(setUser(response.data)))
-        .catch(handleLoginErrors)
-    },
+        .catch(handleLoginErrors),
   })
 
   const { values, errors } = current.context

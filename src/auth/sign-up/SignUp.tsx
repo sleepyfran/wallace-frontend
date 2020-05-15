@@ -8,7 +8,6 @@ import FormError from '../../shared/components/FormError'
 import FormField from '../../shared/components/FormField'
 import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
 import { useForm } from '../../shared/hooks/useForm'
-import { errorsFromResult } from '../../shared/utils'
 import { signUp } from '../shared/api/auth.api'
 import { UserSignUp } from '../shared/model/model'
 import { setUser } from '../shared/store/auth.store'
@@ -24,8 +23,8 @@ const SignUpComponent: FunctionComponent = () => {
   } = useForm<UserSignUp>({
     values: {},
     errors: {},
-    submit: input => {
-      const result = validation
+    validate: input =>
+      validation
         .of(input)
         .property('email')
         .notEmpty()
@@ -36,14 +35,11 @@ const SignUpComponent: FunctionComponent = () => {
         .andProperty('repeatPassword')
         .fulfills(us => us.password === us.repeatPassword)
         .withMessage('The passwords must match!')
-        .result()
-
-      if (result.hasErrors()) return Promise.reject(errorsFromResult(result))
-
-      return signUp(input)
+        .result(),
+    submit: input =>
+      signUp(input)
         .then(response => dispatch(setUser(response.data)))
-        .catch(handleSignUpErrors)
-    },
+        .catch(handleSignUpErrors),
   })
 
   const { values, errors } = current.context

@@ -1,11 +1,13 @@
+import { Result } from 'validum'
+
 /**
  * Defines the context common to all forms.
  */
 export type FormContext<T> = {
   values: { [P in keyof T]?: T[P] }
   errors: { [P in keyof T]?: string } & { general?: string }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  submit: (values: T) => Promise<any>
+  submit: (values: T) => Promise<unknown>
+  validate: (values: T) => Result<T>
 }
 
 /**

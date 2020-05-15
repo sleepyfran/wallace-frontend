@@ -7,6 +7,7 @@ import {
   FormEvent,
   FormState,
 } from '../types/machine'
+import { errorsFromResult } from '../utils'
 
 const isChangeEvent = <T, K extends keyof T>(
   event: FormEvent<T, K>
@@ -29,6 +30,7 @@ export const createFormMachine = <T, K extends keyof T>() =>
         values: {},
         errors: {},
         submit: () => Promise.reject(),
+        validate: () => ({} as any),
       },
       states: {
         editing: {
@@ -37,13 +39,23 @@ export const createFormMachine = <T, K extends keyof T>() =>
             CHANGE: {
               actions: ['onChange'],
             },
-            SUBMIT: 'submitting',
+            SUBMIT: 'validating',
           },
           states: {
             pristine: {
               entry: ['clearForm'],
             },
             error: {},
+          },
+        },
+        validating: {
+          invoke: {
+            src: 'validate',
+            onDone: 'submitting',
+            onError: {
+              target: 'editing.error',
+              actions: ['onError'],
+            },
           },
         },
         submitting: {
@@ -86,6 +98,19 @@ export const createFormMachine = <T, K extends keyof T>() =>
       },
 
       services: {
+        /**
+         * Invokes the validation and resolves or rejects depending if it has
+         * errors or not.
+         */
+        validate: context =>
+          new Promise((resolve, reject) => {
+            const result = context.validate(context.values as T)
+
+            return result.fold(
+              () => reject(errorsFromResult(result)),
+              input => resolve(input)
+            )
+          }),
         onSubmit: context => context.submit(context.values as T),
       },
     }

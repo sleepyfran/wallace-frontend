@@ -6,10 +6,11 @@ import React, {
   useCallback,
 } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link, Button, Field, Box, Label, Divider, Text } from 'theme-ui'
+import { Link, Button, Field, Box, Divider, Text } from 'theme-ui'
 import validation from 'validum'
 
 import { SignUpScreen } from '../../routes'
+import FormError from '../../shared/components/FormError'
 import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
 import { createFormMachine } from '../../shared/machines/form.machine'
 import { Dispatch } from '../../shared/store/types'
@@ -75,7 +76,8 @@ const LoginComponent: FunctionComponent = () => {
           onChange={handleChange}
           value={values.email || ''}
         />
-        {errors.email ? <Label variant="error">{errors.email}</Label> : <></>}
+        <FormError message={errors.email} />
+
         <Field<'input'>
           label="Password"
           name="password"
@@ -83,24 +85,16 @@ const LoginComponent: FunctionComponent = () => {
           type="Password"
           value={values.password || ''}
         />
-        {errors.password ? (
-          <Label variant="error">{errors.password}</Label>
-        ) : (
-          <></>
-        )}
+        <FormError message={errors.password} />
 
-        {errors.general ? (
-          <Label variant="error">{errors.general}</Label>
-        ) : (
-          <></>
-        )}
+        <FormError message={errors.general} />
 
         <Button>Sign In</Button>
 
         <Divider />
 
         <Text>
-          Don&apos; have an account yet?{' '}
+          Don&apos;t have an account yet?{' '}
           <Link href={SignUpScreen.path}>Create an account instead</Link>
         </Text>
       </SingleColumnLayout>

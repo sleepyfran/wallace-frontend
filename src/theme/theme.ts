@@ -89,6 +89,9 @@ export default {
     input: {
       ...baseInteractiveElementStyle,
     },
+    error: {
+      color: 'expense',
+    },
   },
   text: {
     logo: {

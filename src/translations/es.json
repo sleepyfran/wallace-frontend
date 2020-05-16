@@ -1,0 +1,45 @@
+{
+  "translation": {
+    "auth": {
+      "common": {
+        "emailLabel": "Email",
+        "passwordLabel": "Contraseña",
+        "repeatPassword": "Repite la contraseña",
+        "errors": {
+          "emailEmpty": "El email no puede estar vacío",
+          "passwordLength": "La contraseña debe tener al menos 7 caracteres"
+        }
+      },
+      "login": {
+        "title": "¡Bienvenido de nuevo!",
+        "signIn": "Entrar",
+        "alternative": {
+          "title": "¿Aún no tienes una cuenta?",
+          "link": "Crear una cuenta"
+        },
+        "errors": {
+          "wrongCredentials": "Vaya, parece que tus credenciales no son correctas, ¿te importa probar otra vez?"
+        }
+      },
+      "signUp": {
+        "title": "¡Nos alegra verte aquí!",
+        "createAccount": "Crear cuenta",
+        "alternative": {
+          "title": "¿Ya tienes una cuenta?",
+          "link": "Entrar"
+        }
+      }
+    },
+    "common": {
+      "errors": {
+        "serverOffline": "Parece que nuestro servidor está K.O., vuelve a intentarlo más tarde",
+        "unknown": "Hemos tenido un error inesperado, prueba más tarde"
+      }
+    },
+    "landing": {
+      "title": "Crea una cuenta o entra para gestionar tus gastos",
+      "or": "O",
+      "exploreAsGuest": "explorar como invitado"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "translation": {
+    "auth": {
+      "common": {
+        "emailLabel": "Email",
+        "passwordLabel": "Password",
+        "repeatPassword": "Repeat password",
+        "errors": {
+          "emailEmpty": "Email cannot be empty",
+          "passwordLength": "Password has to be at least 7 characters long"
+        }
+      },
+      "login": {
+        "title": "Welcome back!",
+        "signIn": "Sign In",
+        "alternative": {
+          "title": "Don't have an account yet?",
+          "link": "Create an account instead"
+        },
+        "errors": {
+          "wrongCredentials": "Hmm, seems like your credentials are not correct, can you try again?"
+        }
+      },
+      "signUp": {
+        "title": "We're glad to see you here!",
+        "createAccount": "Create an account",
+        "alternative": {
+          "title": "Already have an account?",
+          "link": "Sign in instead"
+        }
+      }
+    },
+    "common": {
+      "errors": {
+        "serverOffline": "Seems like the server is offline, try again later, we'll be back!",
+        "unknown": "We got an unknown error, try again"
+      }
+    },
+    "landing": {
+      "title": "Create an account or sign in to manage your expenses",
+      "or": "Or",
+      "exploreAsGuest": "explore as guest"
+    }
+  }
+}

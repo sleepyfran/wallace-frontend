@@ -1,3 +1,4 @@
+import i18next from 'i18next'
 import { Maybe } from 'purify-ts'
 
 import { errorsFromResponse } from '../utils'
@@ -16,10 +17,9 @@ export default <T>(err: ErrorResponse<T>) => {
       return Promise.reject(errorsFromResponse(maybeData))
     case undefined:
       return Promise.reject({
-        general:
-          "Seems like the server is offline, try again later, we'll be back!",
+        general: i18next.t('common.errors.serverOffline'),
       })
     default:
-      return Promise.reject({ general: 'We got an unknown error, try again' })
+      return Promise.reject({ general: i18next.t('common.errors.unknown') })
   }
 }

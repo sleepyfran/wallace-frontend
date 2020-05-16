@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { Button, Divider, Text } from 'theme-ui'
 
@@ -7,6 +8,7 @@ import SingleColumnLayout from '../shared/components/SingleColumnLayout'
 
 const LandingComponent: FunctionComponent = () => {
   const history = useHistory()
+  const { t } = useTranslation()
 
   const handleSignInClick = () => {
     history.push(LoginScreen.path)
@@ -23,19 +25,19 @@ const LandingComponent: FunctionComponent = () => {
   return (
     <SingleColumnLayout
       showUserSectionInHeader={false}
-      title="Create an account or sign in to manage your expenses"
+      title={t('landing.title')}
     >
       <Button onClick={handleSignInClick} sx={{ mb: 1 }}>
-        Sign In
+        {t('auth.login.signIn')}
       </Button>
       <Button onClick={handleSignUpClick} variant="outline">
-        Create account
+        {t('auth.signUp.createAccount')}
       </Button>
       <Divider sx={{ mt: 4 }} />
       <Text sx={{ textAlign: 'center', mt: 1 }}>
-        Or{' '}
+        {`${t('landing.or')} `}
         <Button onClick={handleExploreAsGuestClick} variant="anchor">
-          explore as guest
+          {t('landing.exploreAsGuest')}
         </Button>
       </Text>
     </SingleColumnLayout>

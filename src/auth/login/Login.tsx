@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { Link, Button, Box, Divider, Text } from 'theme-ui'
 import validation from 'validum'
@@ -16,6 +17,7 @@ import handleLoginErrors from './login.errorHandler'
 
 const LoginComponent: FunctionComponent = () => {
   const dispatch: Dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const {
     machine: [current],
@@ -29,10 +31,10 @@ const LoginComponent: FunctionComponent = () => {
         .of(input)
         .property('email')
         .notEmpty()
-        .withMessage('Email cannot be empty')
+        .withMessage(t('auth.common.errors.emailEmpty'))
         .andProperty('password')
         .minLength(7)
-        .withMessage('Password has to be at least 7 characters long')
+        .withMessage(t('auth.common.errors.passwordLength'))
         .result(),
     submit: input =>
       login(input)
@@ -47,10 +49,10 @@ const LoginComponent: FunctionComponent = () => {
       <SingleColumnLayout
         childrenMargin={3}
         showUserSectionInHeader={false}
-        title="Welcome back!"
+        title={t('auth.login.title')}
       >
         <FormField
-          label="Email"
+          label={t('auth.common.emailLabel')}
           name="email"
           onChange={handleChange}
           value={values.email || ''}
@@ -58,23 +60,25 @@ const LoginComponent: FunctionComponent = () => {
         <FormError message={errors.email} />
 
         <FormField
-          label="Password"
+          label={t('auth.common.passwordLabel')}
           name="password"
           onChange={handleChange}
-          type="Password"
+          type="password"
           value={values.password || ''}
         />
         <FormError message={errors.password} />
 
         <FormError message={errors.general} />
 
-        <Button>Sign In</Button>
+        <Button>{t('auth.login.signIn')}</Button>
 
         <Divider />
 
         <Text>
-          Don&apos;t have an account yet?{' '}
-          <Link href={SignUpScreen.path}>Create an account instead</Link>
+          {`${t('auth.login.alternative.title')} `}
+          <Link href={SignUpScreen.path}>
+            {t('auth.login.alternative.link')}
+          </Link>
         </Text>
       </SingleColumnLayout>
     </Box>

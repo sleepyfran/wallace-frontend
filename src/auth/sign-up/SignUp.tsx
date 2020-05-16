@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { Link, Button, Divider, Text, Box } from 'theme-ui'
 import validation from 'validum'
@@ -15,6 +16,7 @@ import handleSignUpErrors from './signup.errorHandler'
 
 const SignUpComponent: FunctionComponent = () => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const {
     machine: [current],
@@ -49,10 +51,10 @@ const SignUpComponent: FunctionComponent = () => {
       <SingleColumnLayout
         childrenMargin={3}
         showUserSectionInHeader={false}
-        title="We're glad to see you here!"
+        title={t('auth.signUp.title')}
       >
         <FormField
-          label="Email"
+          label={t('auth.common.emailLabel')}
           name="email"
           onChange={handleChange}
           value={values.email}
@@ -60,7 +62,7 @@ const SignUpComponent: FunctionComponent = () => {
         <FormError message={errors.email} />
 
         <FormField
-          label="Password"
+          label={t('auth.common.passwordLabel')}
           name="password"
           onChange={handleChange}
           type="Password"
@@ -69,7 +71,7 @@ const SignUpComponent: FunctionComponent = () => {
         <FormError message={errors.password} />
 
         <FormField
-          label="Repeat password"
+          label={t('auth.common.repeatPassword')}
           name="repeatPassword"
           onChange={handleChange}
           type="Password"
@@ -79,13 +81,15 @@ const SignUpComponent: FunctionComponent = () => {
 
         <FormError message={errors.general} />
 
-        <Button>Create account</Button>
+        <Button>{t('auth.signUp.createAccount')}</Button>
 
         <Divider />
 
         <Text>
-          Already have an account?{' '}
-          <Link href={LoginScreen.path}>Sign in instead</Link>
+          {`${t('auth.signUp.alternative.title')} `}
+          <Link href={LoginScreen.path}>
+            {t('auth.signUp.alternative.link')}
+          </Link>
         </Text>
       </SingleColumnLayout>
     </Box>

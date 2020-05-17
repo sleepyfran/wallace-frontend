@@ -49,7 +49,7 @@ export default {
     heading: 700,
     bold: 700,
   },
-  breakpoints: ['40em', '64em', '78em'],
+  breakpoints: ['40em', '64em', '70em', '130em'],
   lineHeights: {
     body: 1.5,
     heading: 1.25,

@@ -13,7 +13,14 @@ const LayoutComponent: FunctionComponent<LayoutProps> = ({
   children,
 }) => {
   return (
-    <Flex sx={{ flexDirection: 'column', minHeight: '100vh', p: 3 }}>
+    <Flex
+      sx={{
+        flexDirection: 'column',
+        minHeight: '100vh',
+        py: 3,
+        px: [3, 4, 4, 6, 8],
+      }}
+    >
       <Header showUserSection={showUserSectionInHeader} />
       <Box sx={{ flex: 1 }}>{children}</Box>
       <Footer />

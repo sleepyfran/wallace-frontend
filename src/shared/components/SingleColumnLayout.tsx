@@ -19,8 +19,8 @@ const SingleColumnLayout: FunctionComponent<SingleColumnLayoutProps> = props => 
         <Box
           sx={{
             mt: 3,
-            px: [1, 3, 4],
-            width: ['100%', '50%', '25%'],
+            px: [1, 3, null, 4],
+            width: ['100%', '50%', null, '40%', '25%'],
             ...withMarginInAllButFirstChild('mt', childrenMargin),
           }}
         >

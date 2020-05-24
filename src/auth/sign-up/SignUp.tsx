@@ -28,15 +28,18 @@ const SignUpComponent: FunctionComponent = () => {
     validate: input =>
       validation
         .of(input)
-        .property('email')
+        .property('name')
         .notEmpty()
-        .withMessage('Email cannot be empty')
+        .withMessage(t('auth.signUp.errors.nameEmpty'))
+        .andProperty('email')
+        .notEmpty()
+        .withMessage(t('auth.common.errors.emailEmpty'))
         .andProperty('password')
         .minLength(7)
-        .withMessage('Password has to be at least 7 characters long')
+        .withMessage(t('auth.common.errors.passwordLength'))
         .andProperty('repeatPassword')
         .fulfills(us => us.password === us.repeatPassword)
-        .withMessage('The passwords must match!')
+        .withMessage(t('auth.signUp.errors.passwordsDoNotMatch'))
         .result(),
     submit: input =>
       signUp(input)
@@ -53,6 +56,14 @@ const SignUpComponent: FunctionComponent = () => {
         showUserSectionInHeader={false}
         title={t('auth.signUp.title')}
       >
+        <FormField
+          label={t('auth.signUp.nameLabel')}
+          name="name"
+          onChange={handleChange}
+          value={values.name}
+        />
+        <FormError message={errors.name} />
+
         <FormField
           label={t('auth.common.emailLabel')}
           name="email"

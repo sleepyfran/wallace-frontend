@@ -24,9 +24,14 @@
       "signUp": {
         "title": "¡Nos alegra verte aquí!",
         "createAccount": "Crear cuenta",
+        "nameLabel": "Nombre",
         "alternative": {
           "title": "¿Ya tienes una cuenta?",
           "link": "Entrar"
+        },
+        "errors": {
+          "nameEmpty": "El nombre no puede estar vacío",
+          "passwordsDoNotMatch": "¡Las contraseñas deben coincidir!"
         }
       }
     },

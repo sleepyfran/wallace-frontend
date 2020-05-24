@@ -24,9 +24,14 @@
       "signUp": {
         "title": "We're glad to see you here!",
         "createAccount": "Create an account",
+        "nameLabel": "Name",
         "alternative": {
           "title": "Already have an account?",
           "link": "Sign in instead"
+        },
+        "errors": {
+          "nameEmpty": "Name cannot be empty",
+          "passwordsDoNotMatch": "Passwords need to match!"
         }
       }
     },

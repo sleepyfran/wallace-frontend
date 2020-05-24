@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { Flex } from 'theme-ui'
 
+import User from '../../auth/components/User'
 import Logo from './Logo'
-import User from './User'
 
 export type HeaderProps = {
   showUserSection?: boolean
@@ -14,7 +14,7 @@ const HeaderComponent: FunctionComponent<HeaderProps> = ({
   return (
     <Flex sx={{ px: 1, justifyContent: 'space-between', alignItems: 'center' }}>
       <Logo />
-      {showUserSection ? <User user={undefined} /> : <></>}
+      {showUserSection ? <User /> : <></>}
     </Flex>
   )
 }

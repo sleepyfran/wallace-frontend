@@ -41,6 +41,20 @@
         "unknown": "We got an unknown error, try again"
       }
     },
+    "setup": {
+      "baseCurrency": {
+        "hint": "Select a base currency that will be shown across the app. You will be able to select more later, but those will be transformed into this one when showed in statistics and overviews",
+        "stepTitle": "Base currency"
+      },
+      "firstAccount": {
+        "hint": "",
+        "stepTitle": "First account"
+      },
+      "categories": {
+        "hint": "",
+        "stepTitle": "Categories"
+      }
+    },
     "landing": {
       "title": "Create an account or sign in to manage your expenses",
       "or": "Or",

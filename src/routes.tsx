@@ -1,8 +1,10 @@
-import { FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 
 import LoginComponent from './auth/login/Login'
+import RequireLogin from './auth/require-login/RequireLogin'
 import SignUpComponent from './auth/sign-up/SignUp'
 import LandingComponent from './landing/Landing'
+import BaseCurrencyComponent from './setup/base-currency/BaseCurrency'
 
 type Route = {
   id: number
@@ -36,7 +38,24 @@ export const SignUpScreen: Route = {
   component: SignUpComponent,
 }
 
+export const SetupBaseCurrencyScreen: Route = {
+  id: 3,
+  name: 'BaseCurrency',
+  path: '/setup/baseCurrency',
+  exact: true,
+  component: () => (
+    <RequireLogin>
+      <BaseCurrencyComponent />
+    </RequireLogin>
+  ),
+}
+
 /**
  * Routes of the app.
  */
-export default [LandingScreen, LoginScreen, SignUpScreen]
+export default [
+  LandingScreen,
+  LoginScreen,
+  SignUpScreen,
+  SetupBaseCurrencyScreen,
+]

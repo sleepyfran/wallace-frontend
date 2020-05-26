@@ -5,7 +5,7 @@ import { withMarginInAllButFirstChild } from '../utils'
 import Layout, { LayoutProps } from './Layout'
 
 export type SingleColumnLayoutProps = {
-  title: string
+  title?: string
   childrenMargin?: string | number
 } & LayoutProps
 
@@ -15,12 +15,12 @@ const SingleColumnLayout: FunctionComponent<SingleColumnLayoutProps> = props => 
   return (
     <Layout {...props}>
       <Flex sx={{ flexDirection: 'column', alignItems: 'center', mt: 3 }}>
-        <Heading>{title}</Heading>
+        {title ? <Heading>{title}</Heading> : <></>}
         <Box
           sx={{
             mt: 3,
             px: [1, 3, null, 4],
-            width: ['100%', '50%', null, '40%', '25%'],
+            width: ['100%', '50%', null, null, null],
             ...withMarginInAllButFirstChild('mt', childrenMargin),
           }}
         >

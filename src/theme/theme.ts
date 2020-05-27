@@ -120,6 +120,8 @@ export default {
       fontFamily: 'body',
       fontWeight: 'body',
       lineHeight: 'body',
+      fill: 'main',
+      stroke: 'main',
     },
     a: {
       color: 'text',

@@ -36,6 +36,9 @@
       }
     },
     "common": {
+      "hints": {
+        "search": "Enter something to search"
+      },
       "errors": {
         "serverOffline": "Seems like the server is offline, try again later, we'll be back!",
         "unknown": "We got an unknown error, try again"

@@ -36,6 +36,9 @@
       }
     },
     "common": {
+      "hints": {
+        "search": "Escribe algo para buscar"
+      },
       "errors": {
         "serverOffline": "Parece que nuestro servidor está K.O., vuelve a intentarlo más tarde",
         "unknown": "Hemos tenido un error inesperado, prueba más tarde"

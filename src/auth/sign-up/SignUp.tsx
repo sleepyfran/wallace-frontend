@@ -1,10 +1,11 @@
 import React, { FunctionComponent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { Link, Button, Divider, Text, Box } from 'theme-ui'
 import validation from 'validum'
 
-import { LoginScreen } from '../../routes'
+import { LoginScreen, SetupBaseCurrencyScreen } from '../../routes'
 import FormError from '../../shared/components/FormError'
 import FormField from '../../shared/components/FormField'
 import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
@@ -17,6 +18,7 @@ import handleSignUpErrors from './signup.errorHandler'
 const SignUpComponent: FunctionComponent = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
+  const history = useHistory()
 
   const {
     machine: [current],
@@ -43,7 +45,10 @@ const SignUpComponent: FunctionComponent = () => {
         .result(),
     submit: input =>
       signUp(input)
-        .then(response => dispatch(setUser(response.data)))
+        .then(response => {
+          dispatch(setUser(response.data))
+          history.push(SetupBaseCurrencyScreen.path)
+        })
         .catch(handleSignUpErrors),
   })
 

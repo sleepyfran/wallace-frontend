@@ -36,6 +36,7 @@
       }
     },
     "common": {
+      "nextStep": "Next step",
       "hints": {
         "search": "Enter something to search"
       },
@@ -47,7 +48,10 @@
     "setup": {
       "baseCurrency": {
         "hint": "Select a base currency that will be shown across the app. You will be able to select more later, but those will be transformed into this one when showed in statistics and overviews",
-        "stepTitle": "Base currency"
+        "stepTitle": "Base currency",
+        "loadingLabel": "Loading currencies, just a sec...",
+        "errorLabel": "There was an error while loading the currencies. Maybe try ",
+        "retryLink": "again?"
       },
       "firstAccount": {
         "hint": "",

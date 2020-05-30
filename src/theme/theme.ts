@@ -23,6 +23,7 @@ export default {
     backgroundOutlineDimmed: '#E3E3E3',
     expense: '#BE5043',
     income: '#59B08F',
+    selected: '#2D9CDB',
     modes: {
       dark: {
         main: '#F2F2F2',
@@ -33,6 +34,7 @@ export default {
         backgroundOutlineDimmed: '#454545',
         expense: '#BE5043',
         income: '#59B08F',
+        selected: '#2D9CDB',
       },
     },
   },
@@ -86,6 +88,14 @@ export default {
       bg: 'transparent',
     },
   },
+  cards: {
+    primary: {
+      backgroundColor: 'white',
+      padding: 2,
+      borderRadius: 4,
+      boxShadow: '0 0 8px rgba(0, 0, 0, 0.125)',
+    },
+  },
   forms: {
     input: {
       ...baseInteractiveElementStyle,
@@ -108,6 +118,12 @@ export default {
       fontSize: [4, 5, 5],
       fontWeight: 'heading',
       lineHeight: 'heading',
+    },
+    currencySymbol: {
+      fontFamily: 'heading',
+      fontWeight: 'heading',
+      lineHeight: 'heading',
+      textTransform: 'uppercase',
     },
     inputTitle: {
       fontSize: 1,

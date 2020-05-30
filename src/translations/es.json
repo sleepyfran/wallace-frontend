@@ -36,6 +36,7 @@
       }
     },
     "common": {
+      "nextStep": "Siguiente paso",
       "hints": {
         "search": "Escribe algo para buscar"
       },

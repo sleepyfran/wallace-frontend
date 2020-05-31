@@ -106,6 +106,9 @@ export default {
     },
   },
   text: {
+    error: {
+      color: 'expense',
+    },
     logo: {
       main: {
         fontSize: 48,

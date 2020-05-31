@@ -67,7 +67,7 @@ const BaseCurrencyComponent: FunctionComponent = () => {
         )}
 
         {current.matches('error') ? (
-          <Text>
+          <Text variant="error">
             {t('setup.baseCurrency.errorLabel')}{' '}
             <Button onClick={() => send('RETRY')} variant="anchor">
               {t('setup.baseCurrency.retryLink')}

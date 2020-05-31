@@ -1,5 +1,6 @@
-type Token = {
+export type Token = {
   jwt: string
+  expiry: string
 }
 
 export type TokenCollection = {

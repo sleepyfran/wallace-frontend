@@ -5,6 +5,8 @@ import genericErrorHandler from '../../shared/api/generic.errorHandler'
 
 export default <T>(err: ErrorResponse<T>) => {
   switch (err.response?.status) {
+    case 400:
+    case 401:
     case 404:
       return Promise.reject({
         general: i18next.t('auth.login.errors.wrongCredentials'),

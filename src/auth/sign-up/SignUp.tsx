@@ -2,12 +2,13 @@ import React, { FunctionComponent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { Link, Button, Divider, Text, Box } from 'theme-ui'
+import { Link, Divider, Text, Box } from 'theme-ui'
 import validation from 'validum'
 
 import { LoginScreen, SetupBaseCurrencyScreen } from '../../routes'
 import FormError from '../../shared/components/FormError'
 import FormField from '../../shared/components/FormField'
+import LoadingButton from '../../shared/components/LoadingButton'
 import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
 import { useForm } from '../../shared/hooks/useForm'
 import { signUp } from '../shared/api/auth.api'
@@ -97,7 +98,9 @@ const SignUpComponent: FunctionComponent = () => {
 
         <FormError message={errors.general} />
 
-        <Button>{t('auth.signUp.createAccount')}</Button>
+        <LoadingButton loading={current.matches('submitting')}>
+          {t('auth.signUp.createAccount')}
+        </LoadingButton>
 
         <Divider />
 

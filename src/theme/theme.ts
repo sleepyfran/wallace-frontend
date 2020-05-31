@@ -59,6 +59,7 @@ export default {
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   radii: {
     default: 4,
+    card: 10,
     circle: 99999,
   },
   buttons: {
@@ -92,7 +93,7 @@ export default {
     primary: {
       backgroundColor: 'white',
       padding: 2,
-      borderRadius: 4,
+      borderRadius: 'card',
       boxShadow: '0 0 8px rgba(0, 0, 0, 0.125)',
     },
   },

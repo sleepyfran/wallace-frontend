@@ -48,6 +48,7 @@ const BaseCurrencyComponent: FunctionComponent = () => {
               flexDirection: 'column',
               maxHeight: '600px',
               overflow: 'scroll',
+              p: 2,
               width: '100%',
             }}
           >

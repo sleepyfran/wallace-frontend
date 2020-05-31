@@ -10,13 +10,13 @@ const apiInstance = axios.create({
  * Interceptor that adds the token to the request's headers if it's available.
  */
 apiInstance.interceptors.request.use(config =>
-  retrieveFromStorage('token').caseOf({
+  retrieveFromStorage('user').caseOf({
     Nothing: () => config,
-    Just: token => ({
+    Just: user => ({
       ...config,
       headers: {
         ...config.headers,
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${user.token.accessToken.jwt}`,
       },
     }),
   })

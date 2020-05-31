@@ -67,7 +67,6 @@ export default createMachine<
           },
           onError: {
             target: 'error',
-            actions: ['onError'],
           },
         },
       },

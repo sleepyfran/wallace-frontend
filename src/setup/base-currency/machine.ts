@@ -2,6 +2,7 @@ import { Maybe, Nothing, Just } from 'purify-ts'
 import { assign, createMachine } from 'xstate'
 
 import { Currency } from '../../shared/types/currency'
+import { lowercaseIncludes } from '../../shared/utils'
 import { getCurrencies } from '../shared/api/setup.api'
 
 type BaseCurrencyContext = {
@@ -116,10 +117,10 @@ export default createMachine<
           event.type === 'SEARCH'
             ? event.input === ''
               ? context.currencies
-              : context.currencies.filter(currency =>
-                  currency.name
-                    .toLowerCase()
-                    .includes(event.input.toLowerCase())
+              : context.currencies.filter(
+                  currency =>
+                    lowercaseIncludes(currency.name, event.input) ||
+                    lowercaseIncludes(currency.code, event.input)
                 )
             : context.currencies,
       }),

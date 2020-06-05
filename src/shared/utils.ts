@@ -86,3 +86,9 @@ export const maybeToObservable = <T>(maybe: Maybe<T>): Observable<T> =>
     Just: content => of(content),
     Nothing: () => throwError(''),
   })
+
+/**
+ * Checks if `parent` includes `child` ignoring casing.
+ */
+export const lowercaseIncludes = (parent: string, child: string): boolean =>
+  parent.toLowerCase().includes(child.toLowerCase())

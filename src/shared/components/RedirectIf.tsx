@@ -1,8 +1,9 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { RootState } from '../store/rootReducer'
+import FullScreenLoading from './FullScreenLoading'
 
 type RedirectIfProps = {
   condition: (state: RootState) => boolean
@@ -18,12 +19,16 @@ const RedirectIf: FunctionComponent<RedirectIfProps> = ({
   condition,
   redirectUrl,
 }) => {
+  const [loading, setLoading] = useState(true)
   const history = useHistory()
   const state = useSelector((s: RootState) => s)
 
-  if (condition(state)) history.replace(redirectUrl)
+  useEffect(() => {
+    setLoading(false)
+    if (condition(state)) history.replace(redirectUrl)
+  }, [condition, history, state, redirectUrl])
 
-  return <>{children}</>
+  return <>{loading ? <FullScreenLoading /> : children}</>
 }
 
 export default RedirectIf

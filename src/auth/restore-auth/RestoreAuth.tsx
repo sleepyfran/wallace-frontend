@@ -1,8 +1,8 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { tap, flatMap, finalize } from 'rxjs/operators'
-import { Flex, Spinner } from 'theme-ui'
 
+import FullScreenLoading from '../../shared/components/FullScreenLoading'
 import { retrieveFromStorage } from '../../shared/storage/storage'
 import { maybeToObservable } from '../../shared/utils'
 import { refreshTokenIfNeeded } from '../shared/auth'
@@ -27,23 +27,7 @@ const RestoreAuth: FunctionComponent = ({ children }) => {
       .subscribe()
   }, [dispatch, maybeUser])
 
-  return (
-    <>
-      {loading ? (
-        <Flex
-          sx={{
-            alignItems: 'center',
-            height: '100%',
-            justifyContent: 'center',
-          }}
-        >
-          <Spinner />
-        </Flex>
-      ) : (
-        children
-      )}
-    </>
-  )
+  return <>{loading ? <FullScreenLoading /> : children}</>
 }
 
 export default RestoreAuth

@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { Maybe } from 'purify-ts'
+import { throwError } from 'rxjs'
 
 import { errorsFromResponse } from '../utils'
 import { ErrorResponse } from './api'
@@ -14,12 +15,12 @@ export default <T>(err: ErrorResponse<T>) => {
 
   switch (err.response?.status) {
     case 400:
-      return Promise.reject(errorsFromResponse(maybeData))
+      return throwError(errorsFromResponse(maybeData))
     case undefined:
-      return Promise.reject({
+      return throwError({
         general: i18next.t('common.errors.serverOffline'),
       })
     default:
-      return Promise.reject({ general: i18next.t('common.errors.unknown') })
+      return throwError({ general: i18next.t('common.errors.unknown') })
   }
 }

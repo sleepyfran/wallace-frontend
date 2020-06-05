@@ -1,8 +1,10 @@
 import { DateTime } from 'luxon'
-import { Maybe, Nothing, Just } from 'purify-ts'
+import { of, Observable, from, throwError } from 'rxjs'
+import { map } from 'rxjs/operators'
 
 import { Token, User } from '../../shared/types/user'
 import { refreshToken } from './api/auth.api'
+import ExpiredRefreshTokenError from './errors/expired-refresh-token.error'
 
 const isValidToken = (token: Token): boolean =>
   DateTime.fromISO(token.expiry) > DateTime.utc()
@@ -19,15 +21,11 @@ const hasValidRefreshToken = (user: User): boolean =>
  * be resolved. If the refresh token is not valid, Nothing will be resolved.
  * @param user Current user data.
  */
-export const refreshTokenIfNeeded = (user: User): Promise<Maybe<User>> => {
-  if (hasValidAccessToken(user)) return Promise.resolve(Just(user))
-  if (!hasValidRefreshToken(user)) return Promise.resolve(Nothing)
+export const refreshTokenIfNeeded = (user: User): Observable<User> => {
+  if (hasValidAccessToken(user)) return of(user)
+  if (!hasValidRefreshToken(user)) return throwError(ExpiredRefreshTokenError)
 
-  return refreshToken(user.token.refreshToken)
-    .then(res => ({
-      ...user,
-      token: res.data,
-    }))
-    .then(u => Just(u))
-    .catch(() => Nothing)
+  return from(refreshToken(user.token.refreshToken)).pipe(
+    map(res => ({ ...user, token: res.data }))
+  )
 }

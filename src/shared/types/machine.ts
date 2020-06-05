@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs'
 import { Result } from 'validum'
 
 /**
@@ -6,7 +7,7 @@ import { Result } from 'validum'
 export type FormContext<T> = {
   values: { [P in keyof T]?: T[P] }
   errors: { [P in keyof T]?: string } & { general?: string }
-  submit: (values: T) => Promise<unknown>
+  submit: (values: T) => Observable<unknown>
   validate: (values: T) => Result<T>
 }
 
@@ -27,9 +28,6 @@ export type FormState<T> =
       context: FormContext<T>
     }
 
-/**
- * Defines the events that can happen in a promise.
- */
 export type ChangeEvent<T, K extends keyof T> = {
   type: 'CHANGE'
   key: K

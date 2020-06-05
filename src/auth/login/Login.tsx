@@ -2,6 +2,8 @@ import React, { FunctionComponent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { from } from 'rxjs'
+import { tap, catchError } from 'rxjs/operators'
 import { Link, Box, Divider, Text } from 'theme-ui'
 import validation from 'validum'
 
@@ -40,12 +42,11 @@ const LoginComponent: FunctionComponent = () => {
         .withMessage(t('auth.common.errors.passwordLength'))
         .result(),
     submit: input =>
-      login(input)
-        .then(response => {
-          dispatch(setUser(response.data))
-          history.push(SetupBaseCurrencyScreen.path)
-        })
-        .catch(handleLoginErrors),
+      from(login(input)).pipe(
+        tap(response => dispatch(setUser(response.data))),
+        tap(() => history.push(SetupBaseCurrencyScreen.path)),
+        catchError(handleLoginErrors)
+      ),
   })
 
   const { values, errors } = current.context

@@ -1,4 +1,5 @@
 import { Maybe } from 'purify-ts'
+import { Observable, of, throwError } from 'rxjs'
 import { Result } from 'validum'
 
 type ThemePropertyValue = string | number
@@ -72,4 +73,16 @@ export const errorsFromResponse = (response: Maybe<any>): any =>
       )
     },
     Nothing: () => ({ general: 'Please fill all the inputs correctly' } as any),
+  })
+
+/**
+ * Transforms a Maybe data type into an Observable that emits the content
+ * of the maybe if it's a Just or throws an empty error if the content is
+ * Nothing.
+ * @param maybe Maybe to transform.
+ */
+export const maybeToObservable = <T>(maybe: Maybe<T>): Observable<T> =>
+  maybe.caseOf({
+    Just: content => of(content),
+    Nothing: () => throwError(''),
   })

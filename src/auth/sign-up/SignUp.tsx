@@ -2,6 +2,8 @@ import React, { FunctionComponent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { from } from 'rxjs'
+import { tap, catchError } from 'rxjs/operators'
 import { Link, Divider, Text, Box } from 'theme-ui'
 import validation from 'validum'
 
@@ -45,12 +47,11 @@ const SignUpComponent: FunctionComponent = () => {
         .withMessage(t('auth.signUp.errors.passwordsDoNotMatch'))
         .result(),
     submit: input =>
-      signUp(input)
-        .then(response => {
-          dispatch(setUser(response.data))
-          history.push(SetupBaseCurrencyScreen.path)
-        })
-        .catch(handleSignUpErrors),
+      from(signUp(input)).pipe(
+        tap(response => dispatch(setUser(response.data))),
+        tap(() => history.push(SetupBaseCurrencyScreen.path)),
+        catchError(handleSignUpErrors)
+      ),
   })
 
   const { values, errors } = current.context

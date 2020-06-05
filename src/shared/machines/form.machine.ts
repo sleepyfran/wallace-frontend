@@ -1,3 +1,4 @@
+import { throwError, of } from 'rxjs'
 import { assign, createMachine } from 'xstate'
 
 import {
@@ -29,7 +30,7 @@ export const createFormMachine = <T, K extends keyof T>() =>
       context: {
         values: {},
         errors: {},
-        submit: () => Promise.reject(),
+        submit: () => throwError(''),
         validate: () => ({} as any),
       },
       states: {
@@ -102,15 +103,15 @@ export const createFormMachine = <T, K extends keyof T>() =>
          * Invokes the validation and resolves or rejects depending if it has
          * errors or not.
          */
-        validate: context =>
-          new Promise((resolve, reject) => {
-            const result = context.validate(context.values as T)
+        validate: context => {
+          const result = context.validate(context.values as T)
 
-            return result.fold(
-              () => reject(errorsFromResult(result)),
-              input => resolve(input)
-            )
-          }),
+          const observable = result.hasErrors()
+            ? throwError(errorsFromResult(result))
+            : of(context.values as T)
+
+          return observable.toPromise()
+        },
         onSubmit: context => context.submit(context.values as T),
       },
     }

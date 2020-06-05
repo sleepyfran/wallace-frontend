@@ -40,6 +40,7 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "rxjs": "^6.5.5",
     "theme-ui": "^0.3.1",
     "typescript": "^3.8.3",
     "validum": "^1.2.1",

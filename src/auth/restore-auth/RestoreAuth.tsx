@@ -1,8 +1,10 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { tap, flatMap, finalize } from 'rxjs/operators'
 import { Flex, Spinner } from 'theme-ui'
 
 import { retrieveFromStorage } from '../../shared/storage/storage'
+import { maybeToObservable } from '../../shared/utils'
 import { refreshTokenIfNeeded } from '../shared/auth'
 import { setUser } from '../shared/store/auth.store'
 
@@ -16,19 +18,13 @@ const RestoreAuth: FunctionComponent = ({ children }) => {
   const maybeUser = retrieveFromStorage('user')
 
   useEffect(() => {
-    maybeUser.caseOf({
-      Just: user => {
-        refreshTokenIfNeeded(user)
-          .then(mu =>
-            mu.caseOf({
-              Just: u => dispatch(setUser(u)),
-              Nothing: () => {},
-            })
-          )
-          .finally(() => setLoading(false))
-      },
-      Nothing: () => setLoading(false),
-    })
+    maybeToObservable(maybeUser)
+      .pipe(
+        flatMap(refreshTokenIfNeeded),
+        tap(u => dispatch(setUser(u))),
+        finalize(() => setLoading(false))
+      )
+      .subscribe()
   }, [dispatch, maybeUser])
 
   return (

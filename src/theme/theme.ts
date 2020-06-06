@@ -1,7 +1,9 @@
 const baseInteractiveElementStyle = {
+  borderRadius: 'default',
   borderColor: 'main',
   borderStyle: 'solid',
   borderWidth: 2,
+  outline: 'none',
   width: '100%',
 }
 
@@ -58,7 +60,7 @@ export default {
   },
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   radii: {
-    default: 4,
+    default: 20,
     card: 10,
     circle: 99999,
   },
@@ -100,6 +102,7 @@ export default {
   forms: {
     input: {
       ...baseInteractiveElementStyle,
+      px: 3,
     },
     error: {
       color: 'expense',

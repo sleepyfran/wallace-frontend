@@ -15,12 +15,13 @@ const CurrencyCard: FunctionComponent<CurrencyCardProps> = props => {
     selected ? `2px solid ${theme.colors.selected}` : ''
 
   return (
-    <Card {...(props as any)} sx={{ ...sx, display: 'flex', border }}>
+    <Card {...(props as any)} sx={{ ...sx, display: 'flex', border, p: 3 }}>
       <Heading
         sx={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          pl: 3,
           width: '10%',
         }}
         variant="currencySymbol"
@@ -28,7 +29,12 @@ const CurrencyCard: FunctionComponent<CurrencyCardProps> = props => {
         {currency.symbol}
       </Heading>
       <Heading
-        sx={{ fontWeight: 'lighter', display: 'inline', pl: 1, width: '90%' }}
+        sx={{
+          fontWeight: 'lighter',
+          display: 'inline',
+          pl: 4,
+          width: '90%',
+        }}
       >
         {currency.name}
       </Heading>

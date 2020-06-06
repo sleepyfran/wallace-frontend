@@ -56,6 +56,13 @@ const StepperComponent: FunctionComponent<StepperProps> = ({
   const hoverTextColor = (index: number) =>
     selectable ? 'invertedText' : textColor(index)
 
+  const isFirst = (index: number) => index === 0
+
+  const isLast = (index: number) => index === steps.length - 1
+
+  const elementBorderRadius = (index: number) =>
+    isFirst(index) ? '20px 0 0 20px' : isLast(index) ? '0 20px 20px 0' : ''
+
   return (
     <Flex
       sx={{
@@ -74,9 +81,11 @@ const StepperComponent: FunctionComponent<StepperProps> = ({
           sx={{
             alignItems: 'center',
             backgroundColor: backgroundColor(index),
+            borderRadius: elementBorderRadius(index),
             color: textColor(index),
             justifyContent: 'center',
             height: '100%',
+            marginLeft: '-3px',
             width: '100%',
             '&:hover': {
               backgroundColor: hoverBackgroundColor(index),

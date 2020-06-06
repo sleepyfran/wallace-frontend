@@ -6,9 +6,9 @@ import RequireLogin from './auth/require-login/RequireLogin'
 import SignUpComponent from './auth/sign-up/SignUp'
 import LandingComponent from './landing/Landing'
 import BaseCurrencyComponent from './setup/base-currency/BaseCurrency'
+import FirstAccountComponent from './setup/first-account/FirstAccount'
 
 export type Route = {
-  id: number
   name: string
   path: string
   exact?: boolean
@@ -16,7 +16,6 @@ export type Route = {
 }
 
 export const LandingScreen: Route = {
-  id: 0,
   name: 'Landing',
   path: '/',
   exact: true,
@@ -24,7 +23,6 @@ export const LandingScreen: Route = {
 }
 
 export const SetupBaseCurrencyScreen: Route = {
-  id: 3,
   name: 'BaseCurrency',
   path: '/setup/baseCurrency',
   exact: true,
@@ -35,8 +33,18 @@ export const SetupBaseCurrencyScreen: Route = {
   ),
 }
 
+export const SetupFirstAccountScreen: Route = {
+  name: 'FirstAccount',
+  path: '/setup/firstAccount',
+  exact: true,
+  component: () => (
+    <RequireLogin>
+      <FirstAccountComponent />
+    </RequireLogin>
+  ),
+}
+
 export const LoginScreen: Route = {
-  id: 1,
   name: 'Login',
   path: '/login',
   exact: true,
@@ -48,7 +56,6 @@ export const LoginScreen: Route = {
 }
 
 export const SignUpScreen: Route = {
-  id: 2,
   name: 'SignUp',
   path: '/sign-up',
   exact: true,

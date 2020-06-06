@@ -13,12 +13,15 @@ const App: React.FC = () => (
     <ThemeProvider theme={Theme}>
       <RestoreAuth>
         <Switch>
-          {Routes.map(route => (
+          {Routes.map((route, index) => (
             <Route
               className="content"
               component={route.component}
               exact={route.exact}
-              key={route.id}
+              // In this case the routes array is static so there's nothing
+              // wrong with using the index as the key.
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
               path={route.path}
             />
           ))}

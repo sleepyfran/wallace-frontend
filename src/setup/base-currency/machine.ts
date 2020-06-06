@@ -73,6 +73,8 @@ export default createMachine<
       },
 
       loaded: {
+        initial: 'notSelected',
+
         on: {
           SEARCH: {
             actions: ['onSearchInput'],
@@ -80,11 +82,20 @@ export default createMachine<
 
           SELECT: {
             actions: ['setSelected'],
+            target: 'loaded.selected',
           },
+        },
 
-          NEXT: {
-            target: 'success',
-            cond: 'currencySelected',
+        states: {
+          notSelected: {},
+
+          selected: {
+            on: {
+              NEXT: {
+                target: '#success',
+                cond: 'currencySelected',
+              },
+            },
           },
         },
       },

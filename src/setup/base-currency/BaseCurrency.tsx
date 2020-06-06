@@ -1,8 +1,10 @@
 import { useMachine } from '@xstate/react'
-import React, { ChangeEvent, FunctionComponent } from 'react'
+import React, { ChangeEvent, FunctionComponent, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useHistory } from 'react-router-dom'
 import { Text, Button, Spinner, Flex } from 'theme-ui'
 
+import { SetupFirstAccountScreen } from '../../routes'
 import Search from '../../shared/components/Search'
 import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
 import Stepper from '../../shared/components/Stepper'
@@ -12,6 +14,7 @@ import CurrencyCard from './CurrencyCard'
 import BaseCurrencyMachine from './machine'
 
 const BaseCurrencyComponent: FunctionComponent = () => {
+  const history = useHistory()
   const { t } = useTranslation()
   const [current, send] = useMachine(BaseCurrencyMachine)
 
@@ -20,6 +23,10 @@ const BaseCurrencyComponent: FunctionComponent = () => {
       Just: c => c.code === currency.code,
       Nothing: () => false,
     })
+
+  useEffect(() => {
+    if (current.matches('success')) history.push(SetupFirstAccountScreen.path)
+  }, [current, history])
 
   return (
     <SingleColumnLayout childrenMargin={3} showUserSectionInHeader>
@@ -79,8 +86,8 @@ const BaseCurrencyComponent: FunctionComponent = () => {
       </Flex>
 
       <Button
-        disabled={!current.matches('success')}
-        onClick={() => send('NEXT')}
+        disabled={!current.matches('loaded.selected')}
+        onClick={() => send({ type: 'NEXT' })}
         variant="outline"
       >
         {t('common.nextStep')}

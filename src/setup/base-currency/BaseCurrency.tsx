@@ -6,10 +6,7 @@ import { Text, Button, Spinner, Flex } from 'theme-ui'
 
 import { Paths } from '../../routes'
 import Search from '../../shared/components/Search'
-import SingleColumnLayout from '../../shared/components/SingleColumnLayout'
-import Stepper from '../../shared/components/Stepper'
 import { Currency } from '../../shared/types/currency'
-import { StepperSteps } from '../shared/stepper/steps'
 import CurrencyCard from './CurrencyCard'
 import BaseCurrencyMachine from './machine'
 
@@ -29,8 +26,7 @@ const BaseCurrencyComponent: FunctionComponent = () => {
   }, [current, navigate])
 
   return (
-    <SingleColumnLayout childrenMargin={3} showUserSectionInHeader>
-      <Stepper selectable={false} steps={StepperSteps(t)} />
+    <>
       <Text>{t('setup.baseCurrency.hint')}</Text>
       <Search
         disabled={!current.matches('loaded')}
@@ -92,7 +88,7 @@ const BaseCurrencyComponent: FunctionComponent = () => {
       >
         {t('common.nextStep')}
       </Button>
-    </SingleColumnLayout>
+    </>
   )
 }
 

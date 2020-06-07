@@ -92,3 +92,10 @@ export const maybeToObservable = <T>(maybe: Maybe<T>): Observable<T> =>
  */
 export const lowercaseIncludes = (parent: string, child: string): boolean =>
   parent.toLowerCase().includes(child.toLowerCase())
+
+/**
+ * Checks if the given path matches a given URL.
+ * @param location Path to check.
+ * @param url Url to check.
+ */
+export const matchesRoute = (path: string, url?: string) => path === url

@@ -1,12 +1,15 @@
 import { NonEmptyList } from 'purify-ts'
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useMemo } from 'react'
+import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router-dom'
 import { Flex } from 'theme-ui'
+
+import { matchesRoute } from '../utils'
 
 export type Step = {
   name: string
   title: string
-  url?: string
+  url: string
 }
 
 type StepperProps = {
@@ -17,22 +20,29 @@ type StepperProps = {
 
 const wrapStep = (step: Step, index = 0) => ({ step, index })
 
-const StepperComponent: FunctionComponent<StepperProps> = ({
+const UrlStepperComponent: FunctionComponent<StepperProps> = ({
   selectable = true,
   steps,
   onStepChanged,
 }) => {
   const navigate = useNavigate()
+  const location = useLocation()
 
-  const [selectedStep, setSelectedStep] = useState(wrapStep(steps[0]))
+  const selectedIndexByPath = useMemo(
+    () => steps.findIndex(s => matchesRoute(location.pathname, s.url)),
+    [location, steps]
+  )
+
+  const selectedStep = useMemo(
+    () => wrapStep(steps[selectedIndexByPath], selectedIndexByPath),
+    [steps, selectedIndexByPath]
+  )
 
   const onStepChangedInternal = (index: number) => {
     if (!selectable) return
     if (selectedStep.index === index) return
 
     const wrappedStep = wrapStep(steps[index])
-
-    setSelectedStep(wrappedStep)
 
     if (wrappedStep.step.url) navigate(wrappedStep.step.url)
     if (onStepChanged) onStepChanged(wrappedStep.step)
@@ -85,7 +95,7 @@ const StepperComponent: FunctionComponent<StepperProps> = ({
             color: textColor(index),
             justifyContent: 'center',
             height: '100%',
-            marginLeft: '-3px',
+            marginLeft: isSelectedStep(index) ? '-3px' : '',
             width: '100%',
             '&:hover': {
               backgroundColor: hoverBackgroundColor(index),
@@ -98,4 +108,4 @@ const StepperComponent: FunctionComponent<StepperProps> = ({
   )
 }
 
-export default StepperComponent
+export default UrlStepperComponent

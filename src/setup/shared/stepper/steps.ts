@@ -1,23 +1,24 @@
 import { TFunction } from 'i18next'
 import { NonEmptyList } from 'purify-ts'
 
-import { Step } from '../../../shared/components/Stepper'
+import { Paths } from '../../../routes'
+import { Step } from '../../../shared/components/UrlStepper'
 
 export const StepperSteps = (t: TFunction): NonEmptyList<Step> =>
   NonEmptyList.unsafeCoerce([
     {
       name: 'baseCurrency',
       title: t('setup.baseCurrency.stepTitle'),
-      url: 'baseCurrency',
+      url: Paths.setup.baseCurrency,
     },
     {
       name: 'firstAccount',
       title: t('setup.firstAccount.stepTitle'),
-      url: 'firstAccount',
+      url: Paths.setup.firstAccount,
     },
     {
       name: 'categories',
       title: t('setup.categories.stepTitle'),
-      url: 'categories',
+      url: Paths.setup.categories,
     },
   ])

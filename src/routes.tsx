@@ -1,5 +1,5 @@
 import React from 'react'
-import { PartialRouteObject } from 'react-router'
+import { PartialRouteObject as RouteObject } from 'react-router'
 
 import LoginComponent from './auth/login/Login'
 import RedirectIfLoggedIn from './auth/redirect-if-logged-in/RedirectIfLoggedIn'
@@ -8,45 +8,45 @@ import SignUpComponent from './auth/sign-up/SignUp'
 import LandingComponent from './landing/Landing'
 import BaseCurrencyComponent from './setup/base-currency/BaseCurrency'
 import FirstAccountComponent from './setup/first-account/FirstAccount'
+import SetupComponent from './setup/Setup'
 
 export const Paths = {
   landing: '/',
   login: '/login',
   setup: {
+    base: '/setup',
     baseCurrency: '/setup/base-currency',
     firstAccount: '/setup/first-account',
+    categories: '/setup/categories',
   },
   signUp: '/sign-up',
 }
 
-const LandingScreen: PartialRouteObject = {
+const LandingScreen: RouteObject = {
   path: '/',
   element: <LandingComponent />,
 }
 
-const SetupScreen: PartialRouteObject = {
+const SetupScreen: RouteObject = {
   path: '/setup',
+  element: (
+    <RequireLogin>
+      <SetupComponent />
+    </RequireLogin>
+  ),
   children: [
     {
       path: 'base-currency',
-      element: (
-        <RequireLogin>
-          <BaseCurrencyComponent />
-        </RequireLogin>
-      ),
+      element: <BaseCurrencyComponent />,
     },
     {
       path: 'first-account',
-      element: (
-        <RequireLogin>
-          <FirstAccountComponent />
-        </RequireLogin>
-      ),
+      element: <FirstAccountComponent />,
     },
   ],
 }
 
-const LoginScreen: PartialRouteObject = {
+const LoginScreen: RouteObject = {
   path: '/login',
   element: (
     <RedirectIfLoggedIn redirectTo={Paths.setup.baseCurrency}>
@@ -55,7 +55,7 @@ const LoginScreen: PartialRouteObject = {
   ),
 }
 
-const SignUpScreen: PartialRouteObject = {
+const SignUpScreen: RouteObject = {
   path: '/sign-up',
   element: (
     <RedirectIfLoggedIn redirectTo={Paths.setup.firstAccount}>

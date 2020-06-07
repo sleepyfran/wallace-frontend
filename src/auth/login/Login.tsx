@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { from } from 'rxjs'
 import { tap, catchError } from 'rxjs/operators'
 import { Link, Box, Divider, Text } from 'theme-ui'
 import validation from 'validum'
 
-import { SignUpScreen, SetupBaseCurrencyScreen } from '../../routes'
+import { Paths } from '../../routes'
 import FormError from '../../shared/components/FormError'
 import FormField from '../../shared/components/FormField'
 import LoadingButton from '../../shared/components/LoadingButton'
@@ -22,7 +22,7 @@ import handleLoginErrors from './login.errorHandler'
 const LoginComponent: FunctionComponent = () => {
   const dispatch: Dispatch = useDispatch()
   const { t } = useTranslation()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const {
     machine: [current],
@@ -44,7 +44,7 @@ const LoginComponent: FunctionComponent = () => {
     submit: input =>
       from(login(input)).pipe(
         tap(response => dispatch(setUser(response.data))),
-        tap(() => history.push(SetupBaseCurrencyScreen.path)),
+        tap(() => navigate(Paths.setup.baseCurrency)),
         catchError(handleLoginErrors)
       ),
   })
@@ -85,9 +85,7 @@ const LoginComponent: FunctionComponent = () => {
 
         <Text>
           {`${t('auth.login.alternative.title')} `}
-          <Link href={SignUpScreen.path}>
-            {t('auth.login.alternative.link')}
-          </Link>
+          <Link href={Paths.signUp}>{t('auth.login.alternative.link')}</Link>
         </Text>
       </SingleColumnLayout>
     </Box>

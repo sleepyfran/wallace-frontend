@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 
-import { LandingScreen } from '../../routes'
+import { Paths } from '../../routes'
 import RedirectIf from '../../shared/components/RedirectIf'
 
 /**
@@ -11,7 +11,7 @@ import RedirectIf from '../../shared/components/RedirectIf'
 const RequireLogin: FunctionComponent = ({ children }) => (
   <RedirectIf
     condition={state => state.auth.loggedInUser.isNothing()}
-    redirectUrl={LandingScreen.path}
+    redirectUrl={Paths.landing}
   >
     {children}
   </RedirectIf>

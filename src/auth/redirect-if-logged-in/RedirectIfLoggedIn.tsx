@@ -1,10 +1,9 @@
 import React, { FunctionComponent } from 'react'
 
-import { Route } from '../../routes'
 import RedirectIf from '../../shared/components/RedirectIf'
 
 type RedirectIfLoggedInProps = {
-  redirectTo: Route
+  redirectTo: string
 }
 
 /**
@@ -17,7 +16,7 @@ const RedirectIfLoggedIn: FunctionComponent<RedirectIfLoggedInProps> = ({
 }) => (
   <RedirectIf
     condition={state => state.auth.loggedInUser.isJust()}
-    redirectUrl={redirectTo.path}
+    redirectUrl={redirectTo}
   >
     {children}
   </RedirectIf>

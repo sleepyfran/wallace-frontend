@@ -1,6 +1,6 @@
 import { NonEmptyList } from 'purify-ts'
 import React, { FunctionComponent, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Flex } from 'theme-ui'
 
 export type Step = {
@@ -22,7 +22,7 @@ const StepperComponent: FunctionComponent<StepperProps> = ({
   steps,
   onStepChanged,
 }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const [selectedStep, setSelectedStep] = useState(wrapStep(steps[0]))
 
@@ -34,7 +34,7 @@ const StepperComponent: FunctionComponent<StepperProps> = ({
 
     setSelectedStep(wrappedStep)
 
-    if (wrappedStep.step.url) history.push(wrappedStep.step.url)
+    if (wrappedStep.step.url) navigate(wrappedStep.step.url)
     if (onStepChanged) onStepChanged(wrappedStep.step)
   }
 

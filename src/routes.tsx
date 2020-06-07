@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
+import { PartialRouteObject } from 'react-router'
 
 import LoginComponent from './auth/login/Login'
 import RedirectIfLoggedIn from './auth/redirect-if-logged-in/RedirectIfLoggedIn'
@@ -8,59 +9,56 @@ import LandingComponent from './landing/Landing'
 import BaseCurrencyComponent from './setup/base-currency/BaseCurrency'
 import FirstAccountComponent from './setup/first-account/FirstAccount'
 
-export type Route = {
-  name: string
-  path: string
-  exact?: boolean
-  component: FunctionComponent
+export const Paths = {
+  landing: '/',
+  login: '/login',
+  setup: {
+    baseCurrency: '/setup/base-currency',
+    firstAccount: '/setup/first-account',
+  },
+  signUp: '/sign-up',
 }
 
-export const LandingScreen: Route = {
-  name: 'Landing',
+const LandingScreen: PartialRouteObject = {
   path: '/',
-  exact: true,
-  component: LandingComponent,
+  element: <LandingComponent />,
 }
 
-export const SetupBaseCurrencyScreen: Route = {
-  name: 'BaseCurrency',
-  path: '/setup/baseCurrency',
-  exact: true,
-  component: () => (
-    <RequireLogin>
-      <BaseCurrencyComponent />
-    </RequireLogin>
-  ),
+const SetupScreen: PartialRouteObject = {
+  path: '/setup',
+  children: [
+    {
+      path: 'base-currency',
+      element: (
+        <RequireLogin>
+          <BaseCurrencyComponent />
+        </RequireLogin>
+      ),
+    },
+    {
+      path: 'first-account',
+      element: (
+        <RequireLogin>
+          <FirstAccountComponent />
+        </RequireLogin>
+      ),
+    },
+  ],
 }
 
-export const SetupFirstAccountScreen: Route = {
-  name: 'FirstAccount',
-  path: '/setup/firstAccount',
-  exact: true,
-  component: () => (
-    <RequireLogin>
-      <FirstAccountComponent />
-    </RequireLogin>
-  ),
-}
-
-export const LoginScreen: Route = {
-  name: 'Login',
+const LoginScreen: PartialRouteObject = {
   path: '/login',
-  exact: true,
-  component: () => (
-    <RedirectIfLoggedIn redirectTo={SetupBaseCurrencyScreen}>
+  element: (
+    <RedirectIfLoggedIn redirectTo={Paths.setup.baseCurrency}>
       <LoginComponent />
     </RedirectIfLoggedIn>
   ),
 }
 
-export const SignUpScreen: Route = {
-  name: 'SignUp',
+const SignUpScreen: PartialRouteObject = {
   path: '/sign-up',
-  exact: true,
-  component: () => (
-    <RedirectIfLoggedIn redirectTo={SetupBaseCurrencyScreen}>
+  element: (
+    <RedirectIfLoggedIn redirectTo={Paths.setup.firstAccount}>
       <SignUpComponent />
     </RedirectIfLoggedIn>
   ),
@@ -69,9 +67,4 @@ export const SignUpScreen: Route = {
 /**
  * Routes of the app.
  */
-export default [
-  LandingScreen,
-  LoginScreen,
-  SignUpScreen,
-  SetupBaseCurrencyScreen,
-]
+export default [LandingScreen, LoginScreen, SignUpScreen, SetupScreen]

@@ -1,4 +1,4 @@
-import { ErrorResponse } from '../../shared/api/api'
 import genericErrorHandler from '../../shared/api/generic.errorHandler'
+import { Result } from '../../shared/api/interface'
 
-export default <T>(err: ErrorResponse<T>) => genericErrorHandler(err)
+export default <T>(err: Result<T>) => genericErrorHandler(err)

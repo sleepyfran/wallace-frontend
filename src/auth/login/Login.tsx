@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { from } from 'rxjs'
 import { tap, catchError } from 'rxjs/operators'
 import { Link, Box, Divider, Text } from 'theme-ui'
 import validation from 'validum'
@@ -42,7 +41,7 @@ const LoginComponent: FunctionComponent = () => {
         .withMessage(t('auth.common.errors.passwordLength'))
         .result(),
     submit: input =>
-      from(login(input)).pipe(
+      login(input).pipe(
         tap(response => dispatch(setUser(response.data))),
         tap(() => navigate(Paths.setup.baseCurrency)),
         catchError(handleLoginErrors)

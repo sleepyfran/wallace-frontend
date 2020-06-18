@@ -7,6 +7,7 @@ import RestoreAuth from './auth/restore-auth/RestoreAuth'
 import Routes from './routes'
 import Store from './shared/store/store'
 import Theme from './theme/theme'
+import DeveloperModeAlert from './shared/components/DeveloperModeAlert'
 
 const App: React.FC = () => {
   const route = useRoutes(Routes)
@@ -14,7 +15,12 @@ const App: React.FC = () => {
   return (
     <Provider store={Store}>
       <ThemeProvider theme={Theme}>
-        <RestoreAuth>{route}</RestoreAuth>
+        <RestoreAuth>
+          <>
+            <DeveloperModeAlert />
+            {route}
+          </>
+        </RestoreAuth>
       </ThemeProvider>
     </Provider>
   )

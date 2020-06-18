@@ -147,7 +147,10 @@ export default createMachine<
     },
 
     services: {
-      loadCurrencies: () => getCurrencies().then(resp => resp.data),
+      loadCurrencies: () =>
+        getCurrencies()
+          .toPromise()
+          .then(resp => resp.data),
     },
   }
 )

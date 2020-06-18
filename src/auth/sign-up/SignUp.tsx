@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { from } from 'rxjs'
 import { tap, catchError } from 'rxjs/operators'
 import { Link, Divider, Text, Box } from 'theme-ui'
 import validation from 'validum'
@@ -47,7 +46,7 @@ const SignUpComponent: FunctionComponent = () => {
         .withMessage(t('auth.signUp.errors.passwordsDoNotMatch'))
         .result(),
     submit: input =>
-      from(signUp(input)).pipe(
+      signUp(input).pipe(
         tap(response => dispatch(setUser(response.data))),
         tap(() => navigate(Paths.setup.baseCurrency)),
         catchError(handleSignUpErrors)

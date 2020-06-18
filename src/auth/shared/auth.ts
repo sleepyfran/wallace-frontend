@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { of, Observable, from, throwError } from 'rxjs'
+import { of, Observable, throwError } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 import { Token, User } from '../../shared/types/user'
@@ -25,7 +25,7 @@ export const refreshTokenIfNeeded = (user: User): Observable<User> => {
   if (hasValidAccessToken(user)) return of(user)
   if (!hasValidRefreshToken(user)) return throwError(ExpiredRefreshTokenError)
 
-  return from(refreshToken(user.token.refreshToken)).pipe(
+  return refreshToken(user.token.refreshToken).pipe(
     map(res => ({ ...user, token: res.data }))
   )
 }

@@ -1,20 +1,6 @@
-import { User } from '../types/user'
-import { Currency } from '../types/currency'
-import Api, { Result } from './interface'
-import { of, throwError, Observable } from 'rxjs'
-
-type EndpointResult = {
-  get?: any
-  post?: any
-  put?: any
-  delete?: any
-  requireAuth?: boolean
-  shouldError?: boolean
-}
-
-type EndpointResults = {
-  [endpoint: string]: EndpointResult
-}
+import { Currency } from '../../types/currency'
+import { User } from '../../types/user'
+import { EndpointResults } from './types'
 
 const fakeUser: User = {
   id: '12345',
@@ -70,20 +56,4 @@ const endpointResults: EndpointResults = {
   },
 }
 
-const wrapResult = (result: any): Observable<Result<any>> => {
-  if (result.shouldError) return throwError('')
-
-  return of({
-    statusCode: 200,
-    data: result,
-  })
-}
-
-const fakeApi: Api = {
-  get: endpoint => wrapResult(endpointResults[endpoint].get),
-  post: endpoint => wrapResult(endpointResults[endpoint].post),
-  put: endpoint => wrapResult(endpointResults[endpoint].put),
-  delete: endpoint => wrapResult(endpointResults[endpoint].delete),
-}
-
-export default fakeApi
+export default endpointResults

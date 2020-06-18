@@ -3,7 +3,7 @@ import { Observable, from } from 'rxjs'
 
 import { retrieveFromStorage } from '../storage/storage'
 import Api, { Result } from './interface'
-import FakeApi from './fake.api'
+import FakeApi from './fake/fake.api'
 
 const internalApi = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,

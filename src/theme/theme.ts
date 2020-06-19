@@ -102,6 +102,12 @@ export default {
   forms: {
     input: {
       ...baseInteractiveElementStyle,
+      backgroundColor: 'invertedText',
+      px: 3,
+    },
+    select: {
+      ...baseInteractiveElementStyle,
+      backgroundColor: 'invertedText',
       px: 3,
     },
     error: {

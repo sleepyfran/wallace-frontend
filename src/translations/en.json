@@ -54,8 +54,16 @@
         "retryLink": "again?"
       },
       "firstAccount": {
-        "hint": "",
-        "stepTitle": "First account"
+        "hint": "Create your first account. It'll use your previously chosen currency. You will be able to add more later",
+        "stepTitle": "First account",
+        "nameLabel": "Name",
+        "initialBalanceLabel": "Initial balance",
+        "typeLabel": "Type",
+        "errors": {
+          "nameEmpty": "Name cannot be empty",
+          "initialBalanceNegative": "Initial balance cannot be negative or not a number",
+          "typeEmpty": "Playing around with HTML, huh? Account type cannot be empty or invalid"
+        }
       },
       "categories": {
         "hint": "",

@@ -18,7 +18,9 @@ export const useForm = <TInput>(context: FormContext<TInput>) => {
    * call the CHANGE event in the machine so that the field gets updated.
    * @param event HTML input event.
    */
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     event.preventDefault()
     send('CHANGE', {
       key: event.target.name,

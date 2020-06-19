@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon'
+
 import { Currency } from '../../types/currency'
 import { User } from '../../types/user'
 import { EndpointResults } from './types'
@@ -9,11 +11,15 @@ const fakeUser: User = {
   token: {
     accessToken: {
       jwt: 'faketoken',
-      expiry: new Date().toString(),
+      expiry: DateTime.utc()
+        .plus({ days: 2 })
+        .toString(),
     },
     refreshToken: {
       jwt: 'faketoken',
-      expiry: new Date().toString(),
+      expiry: DateTime.utc()
+        .plus({ days: 2 })
+        .toString(),
     },
   },
 }

@@ -95,7 +95,7 @@ const UrlStepperComponent: FunctionComponent<StepperProps> = ({
             color: textColor(index),
             justifyContent: 'center',
             height: '100%',
-            marginLeft: isSelectedStep(index) ? '-3px' : '',
+            mx: isSelectedStep(index) ? '-3px' : '',
             width: '100%',
             '&:hover': {
               backgroundColor: hoverBackgroundColor(index),

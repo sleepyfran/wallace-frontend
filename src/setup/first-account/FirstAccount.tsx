@@ -1,29 +1,46 @@
 import { isNumber } from 'lodash'
+import { Just } from 'purify-ts'
 import React, { FunctionComponent } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate, useLocation } from 'react-router'
 import { of } from 'rxjs'
+import { tap } from 'rxjs/operators'
 import { Box, Button, Text } from 'theme-ui'
 import validation from 'validum'
 
+import { Paths } from '../../routes'
 import FormError from '../../shared/components/FormError'
 import FormField from '../../shared/components/FormField'
 import Select from '../../shared/components/Select'
 import { useForm } from '../../shared/hooks/useForm'
+import { AccountType, Account } from '../../shared/types/account'
 import { withMarginInAllButFirstChild } from '../../shared/utils'
 import {
-  FirstAccount,
-  AccountType,
+  FirstAccountInput,
   AccountTypesSelect,
+  UserPreference,
 } from '../shared/model/model'
 
 const FirstAccountComponent: FunctionComponent = () => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const userPreference = location.state as UserPreference
+
+  const onFormSubmit = (account: Account) => {
+    navigate(Paths.setup.categories, {
+      state: {
+        ...userPreference,
+        account: Just(account),
+      } as UserPreference,
+    })
+  }
 
   const {
     machine: [current],
     handleChange,
     handleSubmit,
-  } = useForm<FirstAccount>({
+  } = useForm<FirstAccountInput>({
     values: {},
     errors: {},
     validate: input =>
@@ -42,7 +59,16 @@ const FirstAccountComponent: FunctionComponent = () => {
         .truthy()
         .withMessage(t('setup.firstAccount.errors.typeEmpty'))
         .result(),
-    submit: input => of(console.log(input)),
+    submit: input =>
+      of({}).pipe(
+        tap(() =>
+          onFormSubmit({
+            name: input.name,
+            balance: Number(input.initialBalance),
+            type: input.type,
+          })
+        )
+      ),
   })
 
   const { values, errors } = current.context

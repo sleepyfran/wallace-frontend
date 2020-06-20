@@ -13,6 +13,15 @@ const baseButtonStyle = {
   px: [2, 3, 4],
 }
 
+const baseCard = {
+  backgroundColor: 'white',
+  padding: 2,
+  borderRadius: 'card',
+  boxShadow: '0 0 8px rgba(0, 0, 0, 0.125)',
+  height: '100%',
+  width: '100%',
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default {
   colors: {
@@ -93,10 +102,14 @@ export default {
   },
   cards: {
     primary: {
-      backgroundColor: 'white',
-      padding: 2,
-      borderRadius: 'card',
-      boxShadow: '0 0 8px rgba(0, 0, 0, 0.125)',
+      ...baseCard,
+    },
+
+    selected: {
+      ...baseCard,
+      borderWidth: 2,
+      borderStyle: 'solid',
+      borderColor: 'selected',
     },
   },
   forms: {

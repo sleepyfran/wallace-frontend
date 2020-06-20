@@ -66,8 +66,11 @@
         }
       },
       "categories": {
-        "hint": "",
-        "stepTitle": "Categories"
+        "hint": "We include a multitude of categories that should serve well as a starter, but you can also choose to start from scratch which will give you the possibility to start with a clean slate. In both cases you'll be able to add, edit and remove categories in the settings",
+        "stepTitle": "Categories",
+        "buttonLabel": "Finish setup",
+        "predefinedCategoriesLabel": "Use predefined categories",
+        "emptyCategoriesLabel": "Start from scratch"
       }
     },
     "landing": {

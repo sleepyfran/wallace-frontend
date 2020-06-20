@@ -7,6 +7,7 @@ import RequireLogin from './auth/require-login/RequireLogin'
 import SignUpComponent from './auth/sign-up/SignUp'
 import LandingComponent from './landing/Landing'
 import BaseCurrencyComponent from './setup/base-currency/BaseCurrency'
+import CategoriesComponent from './setup/categories/Categories'
 import FirstAccountComponent from './setup/first-account/FirstAccount'
 import SetupComponent from './setup/Setup'
 
@@ -42,6 +43,10 @@ const SetupScreen: RouteObject = {
     {
       path: 'first-account',
       element: <FirstAccountComponent />,
+    },
+    {
+      path: 'categories',
+      element: <CategoriesComponent />,
     },
   ],
 }

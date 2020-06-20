@@ -27,7 +27,7 @@ export enum CategorySelectionType {
 }
 
 export type UserPreference = {
-  baseCurrency: Currency
+  baseCurrency: Maybe<Currency>
   account: Maybe<Account>
   categoriesSelection: CategorySelectionType
 }

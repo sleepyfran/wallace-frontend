@@ -1,5 +1,5 @@
 import { useMachine } from '@xstate/react'
-import { Nothing } from 'purify-ts'
+import { Nothing, Just } from 'purify-ts'
 import React, { ChangeEvent, FunctionComponent, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -33,7 +33,7 @@ const BaseCurrencyComponent: FunctionComponent = () => {
 
       navigate(Paths.setup.firstAccount, {
         state: {
-          baseCurrency: selectedCurrency,
+          baseCurrency: Just(selectedCurrency),
           account: Nothing,
           categoriesSelection: CategorySelectionType.predefined,
         } as UserPreference,

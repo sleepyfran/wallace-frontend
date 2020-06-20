@@ -1,3 +1,4 @@
+import { cloneDeep, isNil } from 'lodash'
 import { Maybe } from 'purify-ts'
 import { Observable, of, throwError } from 'rxjs'
 import { Result } from 'validum'
@@ -99,3 +100,22 @@ export const lowercaseIncludes = (parent: string, child: string): boolean =>
  * @param url Url to check.
  */
 export const matchesRoute = (path: string, url?: string) => path === url
+
+/**
+ * Takes an object that contains Maybe values that could have lost its inner
+ * methods while stringifying them and puts them back into the object.
+ * @param input Input to transform.
+ */
+export const wrapFalsyMaybes = <T, K extends keyof T>(input: T): T => {
+  if (isNil(input)) return input
+
+  const keys = (Object.keys(input) as unknown) as K[]
+  const transformedInput = cloneDeep(input)
+
+  keys.forEach(k => {
+    if (typeof input[k] === typeof Maybe)
+      transformedInput[k] = Maybe.fromNullable(input[k]) as any
+  })
+
+  return transformedInput
+}

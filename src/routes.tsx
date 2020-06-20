@@ -10,6 +10,8 @@ import BaseCurrencyComponent from './setup/base-currency/BaseCurrency'
 import CategoriesComponent from './setup/categories/Categories'
 import FirstAccountComponent from './setup/first-account/FirstAccount'
 import SetupComponent from './setup/Setup'
+import SetupRedirectPolicy from './setup/shared/redirect-policy'
+import RedirectPolicy from './shared/components/RedirectPolicy'
 
 export const Paths = {
   landing: '/',
@@ -32,7 +34,9 @@ const SetupScreen: RouteObject = {
   path: '/setup',
   element: (
     <RequireLogin>
-      <SetupComponent />
+      <RedirectPolicy policy={SetupRedirectPolicy}>
+        <SetupComponent />
+      </RedirectPolicy>
     </RequireLogin>
   ),
   children: [

@@ -8,7 +8,7 @@ import { Text, Button, Spinner, Flex } from 'theme-ui'
 import { Paths } from '../../routes'
 import Search from '../../shared/components/Search'
 import { Currency } from '../../shared/types/currency'
-import { UserPreference, CategorySelectionType } from '../shared/model/model'
+import { UserPreferences, CategorySelectionType } from '../shared/model/model'
 import CurrencyCard from './CurrencyCard'
 import BaseCurrencyMachine from './machine'
 
@@ -36,7 +36,7 @@ const BaseCurrencyComponent: FunctionComponent = () => {
           baseCurrency: Just(selectedCurrency),
           account: Nothing,
           categoriesSelection: CategorySelectionType.predefined,
-        } as UserPreference,
+        } as UserPreferences,
       })
     }
   }, [current, navigate])

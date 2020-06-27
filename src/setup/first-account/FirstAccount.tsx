@@ -18,21 +18,21 @@ import { withMarginInAllButFirstChild } from '../../shared/utils'
 import {
   FirstAccountInput,
   AccountTypesSelect,
-  UserPreference,
+  UserPreferences,
 } from '../shared/model/model'
 
 const FirstAccountComponent: FunctionComponent = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
-  const userPreference = location.state as UserPreference
+  const userPreference = location.state as UserPreferences
 
   const onFormSubmit = (account: Account) => {
     navigate(Paths.setup.categories, {
       state: {
         ...userPreference,
         account: Just(account),
-      } as UserPreference,
+      } as UserPreferences,
     })
   }
 

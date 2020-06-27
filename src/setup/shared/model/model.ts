@@ -26,7 +26,7 @@ export enum CategorySelectionType {
   empty,
 }
 
-export type UserPreference = {
+export type UserPreferences = {
   baseCurrency: Maybe<Currency>
   account: Maybe<Account>
   categoriesSelection: CategorySelectionType

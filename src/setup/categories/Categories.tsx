@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 import { Text, Flex, Button, Card } from 'theme-ui'
 
-import { UserPreference, CategorySelectionType } from '../shared/model/model'
+import { UserPreferences, CategorySelectionType } from '../shared/model/model'
 
 const CategoriesComponent: FunctionComponent = () => {
   const { t } = useTranslation()
   const location = useLocation()
-  const userPreference = location.state as UserPreference
+  const userPreference = location.state as UserPreferences
   const [selectedCategoriesPreference, setCategoriesPreference] = useState(
     userPreference.categoriesSelection
   )

@@ -1,5 +1,5 @@
+import { some, none, isNone } from 'fp-ts/lib/Option'
 import { isNil } from 'lodash'
-import { Just, Nothing } from 'purify-ts'
 
 import { Paths } from '../../routes'
 import { Policy } from '../../shared/components/RedirectPolicy'
@@ -10,11 +10,11 @@ import { UserPreferences } from './model/model'
  * preference object.
  */
 const redirectPolicy: Policy<UserPreferences | undefined> = (_, localState) => {
-  if (isNil(localState)) return Just(Paths.setup.baseCurrency)
-  if (localState.baseCurrency.isNothing()) return Just(Paths.setup.baseCurrency)
-  if (localState.account.isNothing()) return Just(Paths.setup.firstAccount)
+  if (isNil(localState)) return some(Paths.setup.baseCurrency)
+  if (isNone(localState.baseCurrency)) return some(Paths.setup.baseCurrency)
+  if (isNone(localState.account)) return some(Paths.setup.firstAccount)
 
-  return Nothing
+  return none
 }
 
 export default redirectPolicy

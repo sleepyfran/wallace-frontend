@@ -1,4 +1,4 @@
-import { Maybe, Nothing, Just } from 'purify-ts'
+import { Option, some, none, isSome } from 'fp-ts/lib/Option'
 import { assign, createMachine } from 'xstate'
 
 import { Currency } from '../../shared/types/currency'
@@ -8,7 +8,7 @@ import { getCurrencies } from '../shared/api/setup.api'
 type BaseCurrencyContext = {
   filteredCurrencies: Currency[]
   currencies: Currency[]
-  selected: Maybe<Currency>
+  selected: Option<Currency>
 }
 
 type BaseCurrencyState =
@@ -56,7 +56,7 @@ export default createMachine<
     context: {
       filteredCurrencies: [],
       currencies: [],
-      selected: Nothing,
+      selected: none,
     },
     states: {
       loading: {
@@ -138,12 +138,12 @@ export default createMachine<
 
       setSelected: assign({
         selected: (context, event) =>
-          isSelectedEvent(event) ? Just(event.currency) : context.selected,
+          isSelectedEvent(event) ? some(event.currency) : context.selected,
       }),
     },
 
     guards: {
-      currencySelected: context => context.selected.isJust(),
+      currencySelected: context => isSome(context.selected),
     },
 
     services: {

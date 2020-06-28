@@ -1,4 +1,4 @@
-import { Nothing, Just } from 'purify-ts'
+import { some, none } from 'fp-ts/lib/Option'
 import { throwError } from 'rxjs'
 import { assign, createMachine } from 'xstate'
 
@@ -14,7 +14,7 @@ export const createApiMachine = <T>() =>
       initial: 'waiting',
       context: {
         apiCall: () => throwError(''),
-        error: Nothing,
+        error: none,
       },
       states: {
         waiting: {
@@ -48,7 +48,7 @@ export const createApiMachine = <T>() =>
       actions: {
         onError: assign({
           error: (context, event: ApiEvent<T>) =>
-            isErrorEvent(event) ? Just(event.data) : context.error,
+            isErrorEvent(event) ? some(event.data) : context.error,
         }),
       },
       services: {

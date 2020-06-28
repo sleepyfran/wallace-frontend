@@ -1,3 +1,4 @@
+import { isSome } from 'fp-ts/lib/Option'
 import React, { FunctionComponent } from 'react'
 
 import RedirectIf from '../../shared/components/RedirectIf'
@@ -15,7 +16,7 @@ const RedirectIfLoggedIn: FunctionComponent<RedirectIfLoggedInProps> = ({
   redirectTo,
 }) => (
   <RedirectIf
-    condition={state => state.auth.loggedInUser.isJust()}
+    condition={state => isSome(state.auth.loggedInUser)}
     redirectUrl={redirectTo}
   >
     {children}

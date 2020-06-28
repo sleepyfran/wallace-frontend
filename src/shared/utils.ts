@@ -1,5 +1,6 @@
+import { pipe } from 'fp-ts/lib/function'
+import { Option, fold, fromNullable } from 'fp-ts/lib/Option'
 import { cloneDeep, isNil } from 'lodash'
-import { Maybe } from 'purify-ts'
 import { Observable, of, throwError } from 'rxjs'
 import { Result } from 'validum'
 
@@ -60,33 +61,39 @@ export const errorsFromResult = <T>(
  * of the form machine. TODO: Add types to this in the near future.
  * @param response Response from the error response.
  */
-export const errorsFromResponse = (response: Maybe<any>): any =>
-  response.caseOf({
-    Just: r => {
-      const { errors } = r
+export const errorsFromResponse = (response: Option<any>): any =>
+  pipe(
+    response,
+    fold(
+      () => ({ general: 'Please fill all the inputs correctly' } as any),
+      r => {
+        const { errors } = r
 
-      return Object.keys(errors).reduce(
-        (prev, curr) => ({
-          ...prev,
-          [curr.toLowerCase()]: errors[curr],
-        }),
-        {}
-      )
-    },
-    Nothing: () => ({ general: 'Please fill all the inputs correctly' } as any),
-  })
+        return Object.keys(errors).reduce(
+          (prev, curr) => ({
+            ...prev,
+            [curr.toLowerCase()]: errors[curr],
+          }),
+          {}
+        )
+      }
+    )
+  )
 
 /**
- * Transforms a Maybe data type into an Observable that emits the content
+ * Transforms a Option data type into an Observable that emits the content
  * of the maybe if it's a Just or throws an empty error if the content is
  * Nothing.
- * @param maybe Maybe to transform.
+ * @param maybe Option to transform.
  */
-export const maybeToObservable = <T>(maybe: Maybe<T>): Observable<T> =>
-  maybe.caseOf({
-    Just: content => of(content),
-    Nothing: () => throwError(''),
-  })
+export const maybeToObservable = <T>(maybe: Option<T>): Observable<T> =>
+  pipe(
+    maybe,
+    fold(
+      () => throwError(''),
+      t => of(t)
+    )
+  )
 
 /**
  * Checks if `parent` includes `child` ignoring casing.
@@ -102,7 +109,7 @@ export const lowercaseIncludes = (parent: string, child: string): boolean =>
 export const matchesRoute = (path: string, url?: string) => path === url
 
 /**
- * Takes an object that contains Maybe values that could have lost its inner
+ * Takes an object that contains Option values that could have lost its inner
  * methods while stringifying them and puts them back into the object.
  * @param input Input to transform.
  */
@@ -113,8 +120,8 @@ export const wrapFalsyMaybes = <T, K extends keyof T>(input: T): T => {
   const transformedInput = cloneDeep(input)
 
   keys.forEach(k => {
-    if (typeof input[k] === typeof Maybe)
-      transformedInput[k] = Maybe.fromNullable(input[k]) as any
+    if (typeof input[k] === typeof Option)
+      transformedInput[k] = fromNullable(input[k]) as any
   })
 
   return transformedInput

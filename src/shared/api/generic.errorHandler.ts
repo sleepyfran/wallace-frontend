@@ -1,5 +1,5 @@
+import { fromNullable } from 'fp-ts/lib/Option'
 import i18next from 'i18next'
-import { Maybe } from 'purify-ts'
 import { throwError } from 'rxjs'
 
 import { errorsFromResponse } from '../utils'
@@ -11,7 +11,7 @@ import { Result } from './interface'
  */
 export default <T>(err: Result<T>) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const maybeData = Maybe.fromNullable(err.data as any)
+  const maybeData = fromNullable(err.data as any)
 
   switch (err.statusCode) {
     case 400:

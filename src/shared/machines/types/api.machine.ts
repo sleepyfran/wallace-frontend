@@ -1,4 +1,4 @@
-import { Maybe } from 'purify-ts'
+import { Option } from 'fp-ts/lib/Option'
 import { Observable } from 'rxjs'
 
 export type ApiError = {
@@ -10,7 +10,7 @@ export type ApiError = {
  * Context common to all API calls.
  */
 export type ApiContext<T> = {
-  error: Maybe<ApiError>
+  error: Option<ApiError>
   apiCall: () => Observable<unknown>
 }
 

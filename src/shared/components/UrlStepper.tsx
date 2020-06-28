@@ -1,4 +1,4 @@
-import { NonEmptyList } from 'purify-ts'
+import { NonEmptyArray } from 'fp-ts/lib/NonEmptyArray'
 import React, { FunctionComponent, useMemo } from 'react'
 import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router-dom'
@@ -14,7 +14,7 @@ export type Step = {
 
 type StepperProps = {
   selectable?: boolean
-  steps: NonEmptyList<Step>
+  steps: NonEmptyArray<Step>
   onStepChanged?: (step: Step) => void
 }
 

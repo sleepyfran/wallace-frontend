@@ -1,5 +1,6 @@
 import { useMachine } from '@xstate/react'
-import { Nothing, Just } from 'purify-ts'
+import { pipe } from 'fp-ts/lib/function'
+import { some, none, fold, toNullable } from 'fp-ts/lib/Option'
 import React, { ChangeEvent, FunctionComponent, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -19,22 +20,25 @@ const BaseCurrencyComponent: FunctionComponent = () => {
   const [current, send] = useMachine(BaseCurrencyMachine)
 
   const isSelectedCurrency = (currency: Currency) =>
-    current.context.selected.caseOf({
-      Just: c => c.code === currency.code,
-      Nothing: () => false,
-    })
+    pipe(
+      current.context.selected,
+      fold(
+        () => false,
+        c => c.code === currency.code
+      )
+    )
 
   useEffect(() => {
     if (current.matches('success')) {
       // We know for sure that when the state is success the selected currency
-      // will not be Nothing, but since we cannot type check this, we need
-      // to unsafely coerce to avoid an empty and unused Nothing check.
-      const selectedCurrency = current.context.selected.unsafeCoerce()
+      // will have a value, but since we cannot type check this, we need
+      // to do this hack to avoid an empty and unused none check.
+      const selectedCurrency = toNullable(current.context.selected)!
 
       navigate(Paths.setup.firstAccount, {
         state: {
-          baseCurrency: Just(selectedCurrency),
-          account: Nothing,
+          baseCurrency: some(selectedCurrency),
+          account: none,
           categoriesSelection: CategorySelectionType.predefined,
         } as UserPreferences,
       })

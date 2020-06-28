@@ -1,5 +1,5 @@
+import { some } from 'fp-ts/lib/Option'
 import { isNumber } from 'lodash'
-import { Just } from 'purify-ts'
 import React, { FunctionComponent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation } from 'react-router'
@@ -31,7 +31,7 @@ const FirstAccountComponent: FunctionComponent = () => {
     navigate(Paths.setup.categories, {
       state: {
         ...userPreference,
-        account: Just(account),
+        account: some(account),
       } as UserPreferences,
     })
   }

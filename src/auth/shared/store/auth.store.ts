@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { Just, Nothing } from 'purify-ts'
+import { some, none } from 'fp-ts/lib/Option'
 
 import { saveToStorage } from '../../../shared/storage/storage'
 import { User } from '../../../shared/types/user'
 import { AuthState } from './types'
 
 const initialState: AuthState = {
-  loggedInUser: Nothing,
+  loggedInUser: none,
 }
 
 const authStore = createSlice({
@@ -15,12 +15,12 @@ const authStore = createSlice({
   reducers: {
     setUser(state, action: PayloadAction<User>) {
       saveToStorage('user', action.payload)
-      state.loggedInUser = Just(action.payload)
+      state.loggedInUser = some(action.payload)
     },
 
     removeUser(state) {
       saveToStorage('user', undefined)
-      state.loggedInUser = Nothing
+      state.loggedInUser = none
     },
   },
 })

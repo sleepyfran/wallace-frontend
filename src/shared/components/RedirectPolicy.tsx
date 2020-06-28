@@ -1,4 +1,5 @@
-import { Maybe } from 'purify-ts'
+import { pipe } from 'fp-ts/lib/function'
+import { Option, fold } from 'fp-ts/lib/Option'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -15,7 +16,7 @@ import FullScreenLoading from './FullScreenLoading'
 export type Policy<LocalState> = (
   rootState: RootState,
   localState: LocalState
-) => Maybe<string>
+) => Option<string>
 
 type RedirectPolicyProps = {
   policy: Policy<any>
@@ -39,10 +40,10 @@ const RedirectPolicy: FunctionComponent<RedirectPolicyProps> = ({
   useEffect(() => {
     const maybeRedirect = policy(state, wrapFalsyMaybes(localState))
     setLoading(false)
-    maybeRedirect.caseOf({
-      Just: navigate,
-      Nothing: () => {},
-    })
+    pipe(
+      maybeRedirect,
+      fold(() => {}, navigate)
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

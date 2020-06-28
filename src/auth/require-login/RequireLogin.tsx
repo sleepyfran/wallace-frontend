@@ -1,3 +1,4 @@
+import { isNone } from 'fp-ts/lib/Option'
 import React, { FunctionComponent } from 'react'
 
 import { Paths } from '../../routes'
@@ -10,7 +11,7 @@ import RedirectIf from '../../shared/components/RedirectIf'
  */
 const RequireLogin: FunctionComponent = ({ children }) => (
   <RedirectIf
-    condition={state => state.auth.loggedInUser.isNothing()}
+    condition={state => isNone(state.auth.loggedInUser)}
     redirectUrl={Paths.landing}
   >
     {children}

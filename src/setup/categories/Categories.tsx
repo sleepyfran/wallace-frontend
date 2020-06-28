@@ -1,5 +1,5 @@
 import { useMachine } from '@xstate/react'
-import { Nothing } from 'purify-ts'
+import { none, toNullable } from 'fp-ts/lib/Option'
 import React, { FunctionComponent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
@@ -21,11 +21,11 @@ const CategoriesComponent: FunctionComponent = () => {
     createApiMachine().withContext({
       apiCall: () =>
         submitUserPreferences({
-          account: userPreference.account.unsafeCoerce(),
-          baseCurrency: userPreference.baseCurrency.unsafeCoerce(),
+          account: toNullable(userPreference.account)!,
+          baseCurrency: toNullable(userPreference.baseCurrency)!,
           categoriesSelection: selectedCategoriesPreference,
         }),
-      error: Nothing,
+      error: none,
     })
   )
 

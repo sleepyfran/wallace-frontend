@@ -1,5 +1,5 @@
+import { Option } from 'fp-ts/lib/Option'
 import { capitalize } from 'lodash'
-import { Maybe } from 'purify-ts'
 
 import { AccountType, Account } from '../../../shared/types/account'
 import { Currency } from '../../../shared/types/currency'
@@ -27,8 +27,8 @@ export enum CategorySelectionType {
 }
 
 export type UserPreferences = {
-  baseCurrency: Maybe<Currency>
-  account: Maybe<Account>
+  baseCurrency: Option<Currency>
+  account: Option<Account>
   categoriesSelection: CategorySelectionType
 }
 

@@ -1,4 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
+import { pipe } from 'fp-ts/lib/function'
+import { fold } from 'fp-ts/lib/Option'
 import { Observable, from } from 'rxjs'
 
 import { retrieveFromStorage } from '../storage/storage'
@@ -13,16 +15,19 @@ const internalApi = axios.create({
  * Interceptor that adds the token to the request's headers if it's available.
  */
 internalApi.interceptors.request.use(config =>
-  retrieveFromStorage('user').caseOf({
-    Nothing: () => config,
-    Just: user => ({
-      ...config,
-      headers: {
-        ...config.headers,
-        Authorization: `Bearer ${user.token.accessToken.jwt}`,
-      },
-    }),
-  })
+  pipe(
+    retrieveFromStorage('user'),
+    fold(
+      () => config,
+      user => ({
+        ...config,
+        headers: {
+          ...config.headers,
+          Authorization: `Bearer ${user.token.accessToken.jwt}`,
+        },
+      })
+    )
+  )
 )
 
 /**

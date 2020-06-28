@@ -1,7 +1,7 @@
-import { Maybe } from 'purify-ts'
+import { Option } from 'fp-ts/lib/Option'
 
 import { User } from '../../../shared/types/user'
 
 export type AuthState = {
-  loggedInUser: Maybe<User>
+  loggedInUser: Option<User>
 }

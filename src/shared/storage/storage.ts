@@ -1,4 +1,4 @@
-import { Maybe, Nothing } from 'purify-ts'
+import { Option, none, fromNullable } from 'fp-ts/lib/Option'
 
 import { Storage } from './types'
 
@@ -8,11 +8,11 @@ import { Storage } from './types'
  */
 export const retrieveFromStorage = <K extends keyof Storage>(
   key: K
-): Maybe<Storage[K]> => {
+): Option<Storage[K]> => {
   const localStorageContent = localStorage.getItem(key)
-  if (!localStorageContent) return Nothing
+  if (!localStorageContent) return none
 
-  return Maybe.fromNullable(JSON.parse(localStorageContent) as Storage[K])
+  return fromNullable(JSON.parse(localStorageContent) as Storage[K])
 }
 
 /**

@@ -7,20 +7,20 @@ import { FakeApiConfig, FakeApiFunctions } from './types'
 
 /**
  * General configuration stored on the window so it can be easily modified from
- * the devtools. Only store it if in dev mode since we don't want this in prod :)
+ * the devtools.
+ * TODO: Only store it if in dev mode since we don't want this in prod once
+ * the app uses the real server.
  */
-if (process.env.NODE_ENV === 'development') {
-  const fakeApiConfig: FakeApiConfig = {
-    delay: 500,
-    nextError: undefined,
-  }
-  ;(window as any).fakeApiConfig = fakeApiConfig
-  ;(window as any).fakeApi = {
-    errorNext: error => {
-      fakeApiConfig.nextError = error
-    },
-  } as FakeApiFunctions
+const fakeApiConfig: FakeApiConfig = {
+  delay: 500,
+  nextError: undefined,
 }
+;(window as any).fakeApiConfig = fakeApiConfig
+;(window as any).fakeApi = {
+  errorNext: error => {
+    fakeApiConfig.nextError = error
+  },
+} as FakeApiFunctions
 
 const throwIfError = (
   config: FakeApiConfig

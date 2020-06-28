@@ -52,7 +52,7 @@ export const createApiMachine = <T>() =>
         }),
       },
       services: {
-        callApi: context => context.apiCall(),
+        callApi: context => context.apiCall().toPromise(),
       },
     }
   )

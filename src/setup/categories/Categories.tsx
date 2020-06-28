@@ -1,6 +1,6 @@
 import { useMachine } from '@xstate/react'
 import { none, toNullable } from 'fp-ts/lib/Option'
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 import { Text, Flex, Card } from 'theme-ui'
@@ -28,6 +28,12 @@ const CategoriesComponent: FunctionComponent = () => {
       error: none,
     })
   )
+
+  useEffect(() => {
+    if (current.matches('success')) {
+      console.log('You made it! :D')
+    }
+  }, [current])
 
   const SelectionCard: FunctionComponent<{
     selectionType: CategorySelectionType

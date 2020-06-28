@@ -9,6 +9,6 @@ export const submitUserPreferences = (
   userPreferences: UnwrappedUserPreferences
 ) =>
   Api.post<UnwrappedUserPreferences>(
-    process.env.REACT_APP_USER_PREFERENCESS_ENDPOINT!,
+    process.env.REACT_APP_USER_PREFERENCES_ENDPOINT!,
     userPreferences
   )

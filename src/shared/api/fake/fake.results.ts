@@ -60,6 +60,9 @@ const endpointResults: EndpointResults = {
   [process.env.REACT_APP_CURRENCIES_ENDPOINT!]: {
     get: fakeCurrencies,
   },
+  [process.env.REACT_APP_USER_PREFERENCES_ENDPOINT!]: {
+    post: {},
+  },
 }
 
 export default endpointResults

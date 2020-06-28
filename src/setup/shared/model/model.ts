@@ -31,3 +31,9 @@ export type UserPreferences = {
   account: Maybe<Account>
   categoriesSelection: CategorySelectionType
 }
+
+export type UnwrappedUserPreferences = {
+  baseCurrency: Currency
+  account: Account
+  categoriesSelection: CategorySelectionType
+}

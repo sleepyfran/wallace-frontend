@@ -1,14 +1,15 @@
 import { throwError, of } from 'rxjs'
 import { assign, createMachine } from 'xstate'
 
+import { errorsFromResult } from '../utils'
 import {
   ChangeEvent,
   ErrorEvent,
   FormContext,
   FormEvent,
   FormState,
-} from '../types/machine'
-import { errorsFromResult } from '../utils'
+} from './types/form.machine'
+import { containsError } from './utils'
 
 const isChangeEvent = <T, K extends keyof T>(
   event: FormEvent<T, K>
@@ -16,7 +17,7 @@ const isChangeEvent = <T, K extends keyof T>(
 
 const isErrorEvent = <T, K extends keyof T>(
   event: FormEvent<T, K>
-): event is ErrorEvent<T, K> => event.type.toLowerCase().includes('error')
+): event is ErrorEvent<T, K> => containsError(event.type)
 
 /**
  * Creates a state machine that handles a form given a type T. It'll

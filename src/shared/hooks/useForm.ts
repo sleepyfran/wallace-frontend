@@ -2,7 +2,7 @@ import { useMachine } from '@xstate/react'
 import { ChangeEvent, FormEvent } from 'react'
 
 import { createFormMachine } from '../machines/form.machine'
-import { FormContext } from '../types/machine'
+import { FormContext } from '../machines/types/form.machine'
 
 /**
  * Hooks that automatically creates a form machine and exposes the methods

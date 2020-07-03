@@ -18,7 +18,11 @@ const BaseCurrencyComponent: FunctionComponent = () => {
   })
 
   return (
-    <SingleColumnLayout childrenMargin={3} showUserSectionInHeader>
+    <SingleColumnLayout
+      childrenMargin={3}
+      showNavigationInHeader={false}
+      showUserSectionInHeader
+    >
       <Stepper selectable={false} steps={StepperSteps(t)} />
       <Outlet />
     </SingleColumnLayout>

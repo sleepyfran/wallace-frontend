@@ -22,11 +22,19 @@ const baseCard = {
   width: '100%',
 }
 
+const baseLinkStyle = {
+  color: 'text',
+  textTransform: 'lowercase',
+  fontWeight: 'light',
+  fontSize: 3,
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default {
   colors: {
     main: '#4F4F4F',
     text: '#333333',
+    textDimmed: '#333333',
     invertedText: '#FFFFFF',
     background: '#F2F2F2',
     backgroundDimmed: '#454545',
@@ -153,6 +161,20 @@ export default {
     },
     inputTitle: {
       fontSize: 1,
+    },
+  },
+  links: {
+    nav: {
+      ...baseLinkStyle,
+      textDecoration: 'none',
+      ':hover': {
+        color: 'textDimmed',
+      },
+    },
+    navCurrent: {
+      ...baseLinkStyle,
+      textDecoration: 'underline',
+      color: 'backgroundDimmed',
     },
   },
   styles: {

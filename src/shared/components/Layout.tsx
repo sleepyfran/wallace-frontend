@@ -6,10 +6,12 @@ import Header from './Header'
 
 export type LayoutProps = {
   showUserSectionInHeader?: boolean
+  showNavigationInHeader?: boolean
 }
 
 const LayoutComponent: FunctionComponent<LayoutProps> = ({
   showUserSectionInHeader,
+  showNavigationInHeader,
   children,
 }) => {
   return (
@@ -21,7 +23,10 @@ const LayoutComponent: FunctionComponent<LayoutProps> = ({
         px: [3, 4, 4, 6, 8],
       }}
     >
-      <Header showUserSection={showUserSectionInHeader} />
+      <Header
+        showNavigation={showNavigationInHeader}
+        showUserSection={showUserSectionInHeader}
+      />
       <Box sx={{ flex: 1 }}>{children}</Box>
       <Footer />
     </Flex>

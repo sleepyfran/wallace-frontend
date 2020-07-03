@@ -24,6 +24,7 @@ const LandingComponent: FunctionComponent = () => {
 
   return (
     <SingleColumnLayout
+      showNavigationInHeader={false}
       showUserSectionInHeader={false}
       title={t('landing.title')}
     >

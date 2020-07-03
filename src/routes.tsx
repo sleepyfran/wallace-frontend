@@ -5,6 +5,7 @@ import LoginComponent from './auth/login/Login'
 import RedirectIfLoggedIn from './auth/redirect-if-logged-in/RedirectIfLoggedIn'
 import RequireLogin from './auth/require-login/RequireLogin'
 import SignUpComponent from './auth/sign-up/SignUp'
+import Dashboard from './dashboard/Dashboard'
 import LandingComponent from './landing/Landing'
 import BaseCurrencyComponent from './setup/base-currency/BaseCurrency'
 import CategoriesComponent from './setup/categories/Categories'
@@ -12,6 +13,13 @@ import FirstAccountComponent from './setup/first-account/FirstAccount'
 import SetupComponent from './setup/Setup'
 import SetupRedirectPolicy from './setup/shared/redirect-policy'
 import RedirectPolicy from './shared/components/RedirectPolicy'
+
+type Route = {
+  name: string
+  showInNavigation?: boolean
+  children?: Route[]
+  path: string
+} & RouteObject
 
 export const Paths = {
   landing: '/',
@@ -25,12 +33,14 @@ export const Paths = {
   signUp: '/sign-up',
 }
 
-const LandingScreen: RouteObject = {
+const LandingScreen: Route = {
+  name: 'Home',
   path: '/',
   element: <LandingComponent />,
 }
 
-const SetupScreen: RouteObject = {
+const SetupScreen: Route = {
+  name: 'Setup',
   path: '/setup',
   element: (
     <RequireLogin>
@@ -41,21 +51,25 @@ const SetupScreen: RouteObject = {
   ),
   children: [
     {
+      name: 'Base Currency',
       path: 'base-currency',
       element: <BaseCurrencyComponent />,
     },
     {
+      name: 'First Account',
       path: 'first-account',
       element: <FirstAccountComponent />,
     },
     {
+      name: 'Categories',
       path: 'categories',
       element: <CategoriesComponent />,
     },
   ],
 }
 
-const LoginScreen: RouteObject = {
+const LoginScreen: Route = {
+  name: 'Login',
   path: '/login',
   element: (
     <RedirectIfLoggedIn redirectTo={Paths.setup.baseCurrency}>
@@ -64,7 +78,8 @@ const LoginScreen: RouteObject = {
   ),
 }
 
-const SignUpScreen: RouteObject = {
+const SignUpScreen: Route = {
+  name: 'Sign Up',
   path: '/sign-up',
   element: (
     <RedirectIfLoggedIn redirectTo={Paths.setup.firstAccount}>
@@ -73,7 +88,48 @@ const SignUpScreen: RouteObject = {
   ),
 }
 
+const DashboardScreen: Route = {
+  name: 'Dashboard',
+  path: '/dashboard',
+  showInNavigation: true,
+  element: (
+    <RequireLogin>
+      <Dashboard />
+    </RequireLogin>
+  ),
+}
+
+const TestScreen: Route = {
+  name: 'Test',
+  path: '/test',
+  showInNavigation: true,
+  element: (
+    <RequireLogin>
+      <Dashboard />
+    </RequireLogin>
+  ),
+}
+
+const SecondTestScreen: Route = {
+  name: 'Second Test',
+  path: '/second-test',
+  showInNavigation: true,
+  element: (
+    <RequireLogin>
+      <Dashboard />
+    </RequireLogin>
+  ),
+}
+
 /**
  * Routes of the app.
  */
-export default [LandingScreen, LoginScreen, SignUpScreen, SetupScreen]
+export default [
+  LandingScreen,
+  LoginScreen,
+  SignUpScreen,
+  SetupScreen,
+  DashboardScreen,
+  TestScreen,
+  SecondTestScreen,
+]

@@ -19,7 +19,17 @@ const UserComponent: FunctionComponent = () => {
           <Box sx={{ fill: 'text', height: '32px', width: '32px' }}>
             <UserIcon />
           </Box>
-          <Text>{user.name}</Text>
+          <Text
+            sx={{
+              maxWidth: '200px',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {user.name}
+          </Text>
         </Flex>
       )
     )

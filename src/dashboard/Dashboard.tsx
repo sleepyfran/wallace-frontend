@@ -1,5 +1,7 @@
 import React, { FunctionComponent } from 'react'
 
-const DashboardComponent: FunctionComponent = () => <></>
+import SingleColumnLayout from '../shared/components/SingleColumnLayout'
+
+const DashboardComponent: FunctionComponent = () => <SingleColumnLayout />
 
 export default DashboardComponent

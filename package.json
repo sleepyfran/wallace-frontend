@@ -18,7 +18,7 @@
     "@typescript-eslint/eslint-plugin": "^2.23.0",
     "@typescript-eslint/parser": "^2.23.0",
     "@xstate/react": "^0.8.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "emotion-theming": "^10.0.27",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-typescript": "^7.0.0",
